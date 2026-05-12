@@ -15,18 +15,20 @@ export const AboutSection = () => {
             About Us
           </span>
           <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 mb-6">
-            Passionate About Creating
-            <span className="text-gradient"> AI-Powered</span> Solutions
+            Building Websites That
+            <span className="text-gradient"> Build Businesses</span>
           </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            We are Web Mantu — a passionate team specializing in creating AI-powered web applications.
-            With expertise in modern web technologies and a deep interest in artificial
-            intelligence, we build innovative solutions that push the boundaries of what's
-            possible on the web.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mb-8">
-            Web Mantu — An AI-Powered Web Agency with 3+ Years of Experience. We craft Intelligent Websites, Web Apps, UI/UX, and Seamless AI Integrations.
-          </p>
+          <div className="space-y-5 text-muted-foreground text-[1.1rem] leading-relaxed mb-8">
+            <p>
+              With over <strong>5+ years of experience</strong>, WebMantu is more than just a web development agency. We build scalable digital platforms designed with one primary goal: to help your business grow, generate qualified leads, and maximize your profits.
+            </p>
+            <p>
+              Beyond web development, we specialize in making your operations seamless. If you need repetitive tasks automated, we provide robust <strong>WhatsApp automation, workflow integrations, and social media solutions</strong> to save you time and effort.
+            </p>
+            <p>
+              Our core policy is simple: <strong>Honesty and Long-Term Partnership</strong>. We don't believe in a "deliver and disappear" mindset. We stand by our clients, working transparently and dedicating ourselves to your success until your business actually grows.
+            </p>
+          </div>
         </div>
       </div>
     </section>

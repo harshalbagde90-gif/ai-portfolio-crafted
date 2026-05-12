@@ -105,22 +105,17 @@ export const HeroSection = () => {
           </div>
 
           <h1
-            className="font-display text-3xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+            className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8"
           >
             <BlurText text="Turn Your" delay={0.2} />{" "}
             <BlurText text="Website" textClassName="text-gradient" delay={0.35} />{" "}
             <BlurText text="Into a" delay={0.5} />
             <br className="hidden md:block" />
             <BlurText text="Lead Generation Engine" delay={0.6} />
-            <span className="hidden md:inline">
-              <br />
-              <BlurText text="with " delay={0.9} />
-              <BlurText text="AI & Modern Tech" textClassName="text-gradient" delay={1.1} />
-            </span>
           </h1>
 
           <p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 opacity-0 animate-fade-up font-sans font-normal"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 opacity-0 animate-fade-up font-sans font-normal"
             style={{ animationDelay: "1.2s" }}
           >
             We help businesses attract the right audience, automate repetitive tasks, and convert visitors into qualified leads with AI-driven systems.
@@ -155,4 +150,3 @@ export const HeroSection = () => {
     </section>
   );
 };
-
