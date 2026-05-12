@@ -49,7 +49,7 @@ export const ContactSection = () => {
       );
 
       // 2. Prepare WhatsApp URL
-      const phoneNumber = "919518771543";
+      const phoneNumber = "917499147597";
       const waMessage = `Hello Web Mantu! 🚀%0A%0AI just saw your portfolio and I am interested in your services.%0A%0A*Project Inquiry Details:*%0A👤 *Name:* ${formData.name}%0A📧 *Email:* ${formData.email}%0A📞 *Contact:* ${formData.contact}%0A💬 *Message:* ${formData.message}%0A%0ALooking forward to hearing from you!`;
       const url = `https://wa.me/${phoneNumber}?text=${waMessage}`;
       setWhatsappUrl(url);
@@ -91,7 +91,7 @@ export const ContactSection = () => {
           </p>
           <div className="flex justify-center">
             <a
-              href="https://wa.me/919518771543"
+              href="https://wa.me/917499147597"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex flex-col items-center gap-2 transition-transform duration-300 hover:scale-105 active:scale-95"

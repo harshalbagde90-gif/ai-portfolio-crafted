@@ -5,7 +5,8 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "About", href: "#about" },
+  { name: "Why Choose WebMantu", href: "#why-us" },
+  { name: "About Us", href: "#about" },
   { name: "Services", href: "#services" },
   { name: "Projects", href: "#projects" },
   { name: "Contact", href: "#contact" },
@@ -221,7 +222,21 @@ export const Navbar = () => {
             </span>
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-6">
+            <a
+              href="https://wa.me/917499147597?text=Hello%20WebMantu!%20%F0%9F%9A%80%20I%20just%20visited%20your%20website%20and%20I%27m%20interested%20in%20discussing%20a%20project%20with%20you."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative w-11 h-11 mr-1 whatsapp-btn-pulse transition-transform duration-300 hover:scale-110"
+              aria-label="Connect on WhatsApp"
+            >
+              <img 
+                src="/Logo/whatapp icon.png" 
+                alt="WhatsApp" 
+                className="w-full h-full object-contain drop-shadow-md" 
+              />
+            </a>
+
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="relative w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors focus:outline-none"
@@ -256,15 +271,12 @@ export const Navbar = () => {
                     key={link.name}
                     href={link.href}
                     onClick={handleNavClick(link.href)}
-                    className="group flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-all duration-300"
+                    className="group flex items-center justify-center p-4 rounded-2xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-all duration-300"
                     style={{ animationDelay: `${idx * 0.1}s` }}
                   >
-                    <span className="text-lg font-medium text-white/90 group-hover:text-primary transition-colors font-sans">
+                    <span className="text-lg font-medium text-white/90 group-hover:text-primary transition-colors font-sans text-center">
                       {link.name}
                     </span>
-                    <svg className="w-5 h-5 text-white/20 group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
                   </a>
                 ))}
                 <div className="mt-4 pt-6 border-t border-white/10">

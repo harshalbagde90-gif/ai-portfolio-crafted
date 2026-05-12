@@ -28,7 +28,7 @@ export const TrustSection = () => {
   const { ref, isInView } = useInView();
 
   return (
-    <section className="py-16 relative bg-muted/20 border-y border-border/50" ref={ref}>
+    <section id="why-us" className="py-16 relative bg-muted/20 border-y border-border/50" ref={ref}>
       <div className="container mx-auto px-4 md:px-6">
         <div className={`text-center max-w-3xl mx-auto mb-16 ${isInView ? "animate-fade-up opacity-100" : "opacity-0"}`}>
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">

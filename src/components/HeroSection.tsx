@@ -112,9 +112,11 @@ export const HeroSection = () => {
             <BlurText text="Into a" delay={0.5} />
             <br className="hidden md:block" />
             <BlurText text="Lead Generation Engine" delay={0.6} />
-            <br className="hidden md:block" />
-            <BlurText text="with " delay={0.9} />
-            <BlurText text="AI & Modern Tech" textClassName="text-gradient" delay={1.1} />
+            <span className="hidden md:inline">
+              <br />
+              <BlurText text="with " delay={0.9} />
+              <BlurText text="AI & Modern Tech" textClassName="text-gradient" delay={1.1} />
+            </span>
           </h1>
 
           <p
