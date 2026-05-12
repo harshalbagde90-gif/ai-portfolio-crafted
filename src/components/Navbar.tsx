@@ -224,9 +224,14 @@ export const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground p-2"
+              className="relative w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors focus:outline-none"
+              aria-label="Toggle menu"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              <div className="w-5 h-4 relative">
+                <span className={`w-full h-[2px] bg-white rounded-full absolute left-0 transition-all duration-300 ease-in-out ${isOpen ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0'}`} />
+                <span className={`w-full h-[2px] bg-white rounded-full absolute left-0 top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-0 translate-x-3' : 'opacity-100'}`} />
+                <span className={`w-full h-[2px] bg-white rounded-full absolute left-0 transition-all duration-300 ease-in-out ${isOpen ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-0'}`} />
+              </div>
             </button>
           </div>
         </div>
@@ -237,33 +242,39 @@ export const Navbar = () => {
         createPortal(
           <>
             <div
-              className="md:hidden fixed inset-0 z-[9998] bg-black/60 backdrop-blur-lg"
+              className="md:hidden fixed inset-0 z-[9998] bg-black/60 backdrop-blur-md animate-fade-in"
               onClick={() => setIsOpen(false)}
               aria-hidden
             />
             <div
-              className="md:hidden fixed left-0 right-0 z-[9999] glass border-t border-white/10 p-4 animate-fade-in"
+              className="md:hidden fixed left-0 right-0 z-[9999] glass border-b border-white/10 shadow-2xl rounded-b-3xl overflow-hidden animate-fade-up"
               style={{ top: menuTop }}
             >
-              <div className="flex flex-col gap-4">
-                {navLinks.map((link) => (
+              <div className="flex flex-col p-6 gap-2">
+                {navLinks.map((link, idx) => (
                   <a
                     key={link.name}
                     href={link.href}
                     onClick={handleNavClick(link.href)}
-                    className="text-base font-medium text-foreground hover:text-primary transition-colors font-sans"
+                    className="group flex items-center justify-between p-4 rounded-2xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-all duration-300"
+                    style={{ animationDelay: `${idx * 0.1}s` }}
                   >
-                    {link.name}
+                    <span className="text-lg font-medium text-white/90 group-hover:text-primary transition-colors font-sans">
+                      {link.name}
+                    </span>
+                    <svg className="w-5 h-5 text-white/20 group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </a>
                 ))}
-                <span className="gradient-shadow">
+                <div className="mt-4 pt-6 border-t border-white/10">
                   <Button
-                    className="relative z-10 w-full rounded-full px-5 py-2 font-sans font-semibold text-white bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 transition-all"
+                    className="w-full rounded-2xl h-14 font-sans font-semibold text-white bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 transition-all glow shadow-[0_0_20px_rgba(132,0,255,0.3)] text-lg"
                     asChild
                   >
                     <a href="#contact" onClick={handleNavClick("#contact")}>Let's Talk</a>
                   </Button>
-                </span>
+                </div>
               </div>
             </div>
           </>,

@@ -158,12 +158,12 @@
 
 /* WhatsApp animation */
 @keyframes whatsapp-pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }
 .whatsapp-btn-pulse {
-  animation: whatsapp-pulse 2s infinite;
+  animation: whatsapp-pulse 2.5s ease-in-out infinite;
   border-radius: 50%;
 }
 

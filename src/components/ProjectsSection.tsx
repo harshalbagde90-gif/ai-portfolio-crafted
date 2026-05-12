@@ -18,7 +18,7 @@ const demoProjects = [
     title: "NexusAI Automation & Workflow Solutions",
     description:
       "An AI-powered automation platform designed to streamline business workflows, reduce manual effort, and improve operational efficiency through intelligent automation.",
-    techStack: ["React", "Tailwind CSS", "TypeScript"],
+    techStack: [],
     tags: ["Workflow Automation", "AI-Powered", "Process Optimization", "Cost Reduction", "Scalable Systems"],
     link: "https://nexus-ai-automation.netlify.app/",
     images: [
@@ -37,8 +37,8 @@ const demoProjects = [
     title: "Chatter AI for All – Intelligent Chatbot Platform",
     description:
       "Chatter AI for All is an AI-powered chatbot platform built to help businesses and individuals automate conversations, customer support, and lead generation using self-learning artificial intelligence.",
-    techStack: ["React", "Tailwind CSS", "TypeScript"],
-    tags: ["AI Chatbot", "Customer Support", "Automation", "Lead Generation", "Multilingual AI", "Business Automation"],
+    techStack: [],
+    tags: ["AI Chatbot", "Customer Support", "Automation", "Lead Generation", "Business Automation"],
     link: "https://chatter-ai-for-all.netlify.app/",
     images: [
       "/Images/Project images/Chatter AI/1.webp",
@@ -55,7 +55,7 @@ const demoProjects = [
     title: "Burn Fat Faster – Smart Weight Loss & Fat Burning Platform",
     description:
       "Burn Fat Faster is a health-focused web application designed to educate users on effective and sustainable fat loss strategies through exercise, nutrition, and lifestyle optimization.",
-    techStack: ["React", "Tailwind CSS", "TypeScript"],
+    techStack: [],
     tags: ["Weight Loss", "Fat Burning", "Healthy Lifestyle", "Fitness Guidance", "Sustainable Results"],
     link: "https://burn-fat-faster.netlify.app/",
     images: [
@@ -71,7 +71,7 @@ const demoProjects = [
     title: "Quantum Trade – AI-Powered Trading Platform (Demo Project)",
     description:
       "Quantum Trade is a demo AI-powered trading platform designed to showcase automated trading concepts using AI-driven market analysis and real-time data processing.",
-    techStack: ["React", "Tailwind CSS", "TypeScript"],
+    techStack: [],
     tags: ["AI Trading", "Automated Bots", "Market Analysis", "Trading Technology", "FinTech"],
     link: "https://quantam-trade.netlify.app/",
     images: [
@@ -91,7 +91,7 @@ const liveProjects = [
     title: "NumGuru – AI-Powered Numerology Platform",
     description:
       "NumGuru is a live online Numerology platform based on Pythagorean Numerology. It analyzes your date of birth and name to generate a personal cosmic blueprint — revealing your Life Purpose, Personality & Destiny numbers with AI-driven personalized insights.",
-    techStack: ["React", "TypeScript", "AI/Algorithm", "Tailwind CSS"],
+    techStack: ["AI Algorithm"],
     tags: ["Numerology", "AI-Powered", "Cosmic Blueprint", "Personalized Report", "Live Platform"],
     link: "https://www.numguru.online/",
     images: ["/Images/Project images/NUmguru/Numguru mockup image.png"],
@@ -109,7 +109,7 @@ const liveProjects = [
     title: "TangyTask 🍋 – Smart Productivity App",
     description:
       "TangyTask is a productivity app that helps users manage and schedule their tasks in a simple, effective way. Whether you're a student, professional, or just someone who wants to stay organized — TangyTask keeps your daily work on track.",
-    techStack: ["React", "TypeScript", "Tailwind CSS"],
+    techStack: [],
     tags: ["Productivity", "Task Management", "Scheduling", "Organization", "Live App"],
     link: "https://www.tangytask.com/",
     images: ["/Images/Project images/Tangy task/tangy task.png"],
@@ -157,11 +157,11 @@ const ImageCarousel = ({
       onMouseEnter={() => setAuto(true)}
       onClick={() => setAuto(true)}
     >
-      <div className="w-full aspect-[16/10] bg-black/20">
+      <div className="w-full aspect-[16/9] bg-black/20">
         <img
           src={images[index]}
           alt=""
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
           loading="lazy"
         />
       </div>
@@ -196,7 +196,7 @@ export const ProjectsSection = () => {
   const projects = activeTab === "demo" ? demoProjects : liveProjects;
 
   return (
-    <section id="projects" className="py-24 relative" ref={ref}>
+    <section id="projects" className="py-16 relative" ref={ref}>
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
 
@@ -284,8 +284,7 @@ export const ProjectsSection = () => {
         {/* ── Project Grid ── */}
         <div
           key={activeTab}
-          className={`grid md:grid-cols-2 ${activeTab === "live" ? "lg:grid-cols-2 max-w-4xl mx-auto" : "lg:grid-cols-3"
-            } gap-8`}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
         >
           {projects.map((project, idx) => (
             <div
@@ -327,19 +326,18 @@ export const ProjectsSection = () => {
                   </div>
                 )}
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-display text-xl font-semibold mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                <div className="p-4 md:p-5">
+                  <h3 className="font-display text-lg md:text-xl font-semibold mb-1.5 line-clamp-1">{project.title}</h3>
+                  <p className="text-muted-foreground text-xs md:text-sm mb-3 line-clamp-2">
                     {project.description}
                   </p>
 
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-1.5 mb-3">
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 text-xs rounded-md bg-primary/10 text-primary border border-primary/20"
+                        className="px-2 py-0.5 text-[10px] md:text-xs rounded-md bg-primary/10 text-primary border border-primary/20"
                       >
                         {tech}
                       </span>
@@ -348,11 +346,11 @@ export const ProjectsSection = () => {
 
                   {/* Tags */}
                   {Array.isArray((project as any).tags) && (project as any).tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {(project as any).tags.map((tag: string) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 text-xs rounded-full bg-white/5 text-white/80 border border-white/10"
+                          className="px-2 py-0.5 text-[10px] md:text-xs rounded-full bg-white/5 text-white/80 border border-white/10"
                         >
                           {tag}
                         </span>

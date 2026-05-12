@@ -5,7 +5,7 @@ export const AboutSection = () => {
   const { ref, isInView } = useInView();
 
   return (
-    <section id="about" className="py-24 relative" ref={ref}>
+    <section id="about" className="py-16 relative" ref={ref}>
       <div className="container mx-auto px-4 md:px-6">
         <div
           className={`max-w-3xl mx-auto ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"

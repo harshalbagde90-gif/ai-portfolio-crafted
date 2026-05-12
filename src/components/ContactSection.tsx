@@ -70,7 +70,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative" ref={ref}>
+    <section id="contact" className="py-16 relative" ref={ref}>
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent" />
 
@@ -113,8 +113,12 @@ export const ContactSection = () => {
 
         <div className="max-w-2xl mx-auto">
           <div className={`${isInView ? "opacity-100 animate-fade-up" : "opacity-0"}`}>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
+            <form onSubmit={handleSubmit} className="space-y-6 glass p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden shadow-2xl">
+              {/* Decorative background glow inside form */}
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10 group">
                 <Input
                   placeholder="Your Name"
                   value={formData.name}
@@ -122,10 +126,10 @@ export const ContactSection = () => {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   required
-                  className="h-14 bg-card/50 border-border/50 focus:border-primary/50 transition-colors"
+                  className="h-14 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5"
                 />
               </div>
-              <div>
+              <div className="relative z-10 group">
                 <Input
                   type="email"
                   placeholder="Your Email"
@@ -134,10 +138,10 @@ export const ContactSection = () => {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   required
-                  className="h-14 bg-card/50 border-border/50 focus:border-primary/50 transition-colors"
+                  className="h-14 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5"
                 />
               </div>
-              <div>
+              <div className="relative z-10 group">
                 <Input
                   type="tel"
                   placeholder="Contact Number"
@@ -146,10 +150,10 @@ export const ContactSection = () => {
                     setFormData({ ...formData, contact: e.target.value })
                   }
                   required
-                  className="h-14 bg-card/50 border-border/50 focus:border-primary/50 transition-colors"
+                  className="h-14 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5"
                 />
               </div>
-              <div>
+              <div className="relative z-10 group">
                 <Textarea
                   placeholder="Your Message"
                   value={formData.message}
@@ -157,12 +161,12 @@ export const ContactSection = () => {
                     setFormData({ ...formData, message: e.target.value })
                   }
                   required
-                  rows={6}
-                  className="bg-card/50 border-border/50 focus:border-primary/50 transition-colors resize-none"
+                  rows={5}
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5 py-4 resize-none"
                 />
               </div>
-              <Button type="submit" size="lg" className="w-full glow glow-on-hover transform-gpu transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]" disabled={sending}>
-                <Send size={18} className="mr-2" />
+              <Button type="submit" size="lg" className="w-full h-14 rounded-xl text-lg font-semibold glow glow-on-hover transform-gpu transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] relative z-10" disabled={sending}>
+                <Send size={20} className="mr-2" />
                 {sending ? "Sending..." : "Send Message"}
               </Button>
             </form>

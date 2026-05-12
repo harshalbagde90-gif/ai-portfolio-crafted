@@ -157,16 +157,18 @@ export const ServicesSection = () => {
           key={service.title}
         >
           <div className="card h-full p-6 rounded-2xl glass group-hover:glow transition-all duration-500 flex flex-col">
-            {/* Icon */}
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <service.icon className="text-primary-foreground" size={24} />
+            {/* Icon & Title */}
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <service.icon className="text-primary-foreground" size={24} />
+              </div>
+              <h3 className="font-display text-lg font-semibold leading-tight">
+                {service.title}
+              </h3>
             </div>
 
-            {/* Content */}
-            <h3 className="font-display text-lg font-semibold mb-2">
-              {service.title}
-            </h3>
-            <p className="text-muted-foreground mb-3 text-sm">
+            {/* Description */}
+            <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
               {service.description}
             </p>
 
@@ -212,7 +214,7 @@ export const ServicesSection = () => {
   );
 
   return (
-    <section id="services" className="py-24 relative" ref={ref}>
+    <section id="services" className="py-16 relative" ref={ref}>
       <div className="container mx-auto px-4 md:px-6" ref={sectionRef}>
         <div
           className={`text-center max-w-2xl mx-auto mb-16 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
@@ -236,7 +238,7 @@ export const ServicesSection = () => {
           className={`text-center max-w-2xl mx-auto mb-12 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
             }`}
         >
-          <h2 className="font-display text-2xl md:text-3xl font-bold mt-2 mb-4">
+          <h2 className="font-display text-3xl md:text-5xl font-bold mt-2 mb-4">
             WEB Development <span className="text-gradient">Services</span>
           </h2>
           <p className="text-muted-foreground">
@@ -251,7 +253,7 @@ export const ServicesSection = () => {
           className={`text-center max-w-2xl mx-auto mb-12 mt-24 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
             }`}
         >
-          <h2 className="font-display text-2xl md:text-3xl font-bold mt-2 mb-4">
+          <h2 className="font-display text-3xl md:text-5xl font-bold mt-2 mb-4">
             Performance & Technical <span className="text-gradient">Services</span>
           </h2>
           <p className="text-muted-foreground">
@@ -266,7 +268,7 @@ export const ServicesSection = () => {
           className={`text-center max-w-2xl mx-auto mb-12 mt-24 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
             }`}
         >
-          <h2 className="font-display text-2xl md:text-3xl font-bold mt-2 mb-4">
+          <h2 className="font-display text-3xl md:text-5xl font-bold mt-2 mb-4">
             Advanced <span className="text-gradient">Value-Added Services</span>
           </h2>
           <p className="text-muted-foreground">
