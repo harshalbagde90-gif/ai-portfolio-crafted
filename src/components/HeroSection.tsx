@@ -8,39 +8,39 @@ import { BlurText } from "@/components/ui/BlurText";
 export const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-24 pb-14 md:pt-28 md:pb-16">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-[#D4A43A]/14 blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-[#7A3E2C]/12 blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/2 left-1/2 h-64 w-64 rounded-full bg-[#E7C46A]/8 blur-3xl animate-float" style={{ animationDelay: "2s" }} />
       </div>
       {/* Dot Grid Background */}
       <DotGrid
         className="absolute inset-0 pointer-events-none z-0"
-        dotSize={10}
+        dotSize={9}
         gap={15}
-        baseColor="#5227FF"
-        activeColor="#5227FF"
-        proximity={120}
-        shockRadius={250}
-        shockStrength={5}
-        resistance={750}
-        returnDuration={1.5}
+        baseColor="#2A1E12"
+        activeColor="#F2CF75"
+        proximity={135}
+        shockRadius={255}
+        shockStrength={7}
+        resistance={680}
+        returnDuration={1.9}
       />
       {/* Dark Gradient Overlay (above dots, below glow/text) */}
       <div
         className="absolute inset-0 pointer-events-none z-[5]"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.95) 100%)",
+            "radial-gradient(ellipse at center, rgba(6,6,6,0.54) 0%, rgba(7,7,7,0.78) 52%, rgba(8,8,8,0.92) 100%)",
         }}
       />
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10" ref={heroRef}>
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-7xl relative z-10 mx-auto px-6 md:px-12 lg:px-16" ref={heroRef}>
+        <div className="mx-auto max-w-[72rem] text-center">
           <div className="opacity-0 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full glass bg-card/70 backdrop-blur-md ring-1 ring-white/10 hover:ring-white/20 transition-all mb-6 hero-badge">
+            <div className="hero-badge mb-4 inline-flex items-center gap-3 rounded-full glass bg-card/70 px-5 py-2 backdrop-blur-md ring-1 ring-white/10 transition-all hover:ring-white/20 md:mb-6">
               <svg
                 width="28"
                 height="28"
@@ -98,50 +98,70 @@ export const HeroSection = () => {
                 {/* Chest glow */}
                 <circle cx="12" cy="18.1" r="1.1" fill="url(#bot-accent)" filter="url(#bot-glow)" opacity="0.9" />
               </svg>
-              <span className="text-base md:text-lg font-poppins font-bold tracking-wide animate-gradient-text bg-gradient-to-r from-[#4ade80] via-[#22d3ee] to-[#4ade80]">
+              <span className="font-poppins text-sm font-bold tracking-wide animate-gradient-text bg-gradient-to-r from-[#4ade80] via-[#22d3ee] to-[#4ade80] sm:text-base md:text-lg">
                 Open for New Projects
               </span>
             </div>
           </div>
 
-          <h1
-            className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8"
-          >
-            <BlurText text="Turn Your" delay={0.2} />{" "}
-            <BlurText text="Website" textClassName="text-gradient" delay={0.35} />{" "}
-            <BlurText text="Into a" delay={0.5} />
-            <br className="hidden md:block" />
-            <BlurText text="Lead Generation Engine" delay={0.6} />
+          <h1 className="font-display mb-5 text-[2.1rem] font-bold leading-[1.06] tracking-tight sm:text-4xl md:mb-7 md:text-5xl lg:text-6xl">
+            <BlurText text="Websites That Turn Visitors" delay={0.2} />
+            <br />
+            <BlurText
+              text="Into Qualified Leads"
+              textClassName="bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] bg-clip-text text-transparent"
+              delay={0.45}
+            />
           </h1>
 
           <p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 opacity-0 animate-fade-up font-sans font-normal"
+            className="mx-auto mb-8 max-w-2xl text-base font-sans font-normal leading-[1.65] text-muted-foreground opacity-0 animate-fade-up sm:text-lg md:mb-10 md:text-[1.15rem]"
             style={{ animationDelay: "1.2s" }}
           >
-            We help businesses attract the right audience, automate repetitive tasks, and convert visitors into qualified leads with AI-driven systems.
+            <span className="md:hidden">
+              We build conversion-focused websites that generate more calls, WhatsApp inquiries, and form submissions.
+            </span>
+            <span className="hidden md:inline">
+              We build conversion-focused websites that help serious businesses generate more calls, WhatsApp inquiries, and qualified form leads.
+            </span>
           </p>
 
           <div
-            className="flex flex-wrap items-center justify-center gap-4 mb-12 opacity-0 animate-fade-up"
+            className="mb-7 flex w-full flex-col items-stretch justify-center gap-3 opacity-0 animate-fade-up sm:w-auto sm:flex-row sm:items-center sm:gap-4 md:mb-10"
             style={{ animationDelay: "1.3s" }}
           >
-            <Button size="lg" className="glow-on-hover text-base font-sans font-semibold transition-all duration-300 hover:scale-105 hover:text-white" asChild>
-              <a href="#contact">Get Free Website Plan</a>
+            <Button
+              size="lg"
+              className="glow-on-hover h-[52px] w-full rounded-xl bg-[#D4A43A] px-8 text-base font-sans font-semibold text-[#0B0B0C] transition-all duration-300 hover:scale-[1.02] hover:bg-[#E7C46A] sm:w-auto"
+              asChild
+            >
+              <a href="#contact">Get Free Audit</a>
             </Button>
 
             <a
               href="#projects"
-              className="group relative inline-flex h-11 items-center rounded-full border border-white/10 bg-white/5 pl-6 pr-14 transition-all duration-300 hover:bg-white/10 active:scale-95"
+              className="group inline-flex h-[52px] w-full items-center justify-center rounded-xl border border-[#D4A43A]/45 bg-[#16120E]/60 px-8 text-base font-semibold text-[#E7C46A] transition-all duration-300 hover:border-[#E7C46A]/70 hover:bg-[#1E1812] active:scale-95 sm:w-auto"
             >
-              <span className="relative z-10 font-sans font-semibold text-foreground transition-colors duration-300 group-hover:text-black">
+              <span className="font-sans transition-colors duration-300 group-hover:text-[#F5F2EA]">
                 See Our Work
               </span>
-              <div className="absolute right-1.5 top-1.5 bottom-1.5 w-8 rounded-full bg-white transition-all duration-300 group-hover:w-[calc(100%-12px)] group-active:scale-95">
-                <div className="absolute right-0 top-0 bottom-0 flex w-8 items-center justify-center">
-                  <ArrowRight className="h-4 w-4 text-black transition-transform duration-300 group-hover:translate-x-0.5" />
-                </div>
-              </div>
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
+          </div>
+
+          <div
+            className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-2.5 opacity-0 animate-fade-up"
+            style={{ animationDelay: "1.45s" }}
+          >
+            <span className="rounded-full border border-[#2A221A] bg-[#16120E]/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B9B1A4] sm:text-xs">
+              Conversion-Focused
+            </span>
+            <span className="rounded-full border border-[#2A221A] bg-[#16120E]/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B9B1A4] sm:text-xs">
+              Mobile-First
+            </span>
+            <span className="rounded-full border border-[#2A221A] bg-[#16120E]/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B9B1A4] sm:text-xs">
+              Built for Speed
+            </span>
           </div>
         </div>
 

@@ -42,7 +42,7 @@ export const ExperienceSection = () => {
 
   return (
     <section id="experience" className="py-24 relative" ref={ref}>
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         <div
           className={`text-center max-w-2xl mx-auto mb-16 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
             }`}
@@ -62,7 +62,7 @@ export const ExperienceSection = () => {
         <div className="max-w-3xl mx-auto">
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-purple-500 to-primary transform md:-translate-x-1/2" />
+            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-[#D4A43A] to-primary transform md:-translate-x-1/2" />
 
             {experiences.map((exp, index) => (
               <div
@@ -79,7 +79,7 @@ export const ExperienceSection = () => {
                   {exp.type === "work" ? (
                     <Briefcase className="text-primary" size={20} />
                   ) : (
-                    <GraduationCap className="text-purple-400" size={20} />
+                    <GraduationCap className="text-[#D4A43A]" size={20} />
                   )}
                 </div>
 

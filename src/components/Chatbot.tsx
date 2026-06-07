@@ -212,8 +212,8 @@ export const Chatbot: React.FC = () => {
         className={cn(
           "fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-300 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary/50",
           isOpen 
-            ? "bg-slate-800 text-slate-100 rotate-90" 
-            : "bg-gradient-to-r from-primary via-indigo-500 to-purple-600 text-white glow hover:scale-[1.08] hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            ? "bg-[#1C1712] text-white border border-[#D4A43A]/30 rotate-90" 
+            : "bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A] hover:scale-[1.08] shadow-[0_0_20px_rgba(212,164,58,0.3)] hover:shadow-[0_0_30px_rgba(212,164,58,0.6)]"
         )}
         aria-label="Toggle Chat"
       >
@@ -233,26 +233,25 @@ export const Chatbot: React.FC = () => {
       {/* Chat Window */}
       <div
         className={cn(
-          "fixed bottom-24 right-6 w-[380px] max-w-[calc(100vw-3rem)] h-[550px] max-h-[calc(100vh-8rem)] z-50 rounded-2xl flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right shadow-2xl border border-white/10 glass",
+          "fixed bottom-24 right-6 w-[380px] max-w-[calc(100vw-3rem)] h-[550px] max-h-[calc(100vh-8rem)] z-50 rounded-2xl flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right shadow-[0_0_40px_rgba(212,164,58,0.15)] border border-[#D4A43A]/20 bg-[#0B0B0C]/95 backdrop-blur-md",
           isOpen
             ? "scale-100 opacity-100 pointer-events-auto"
             : "scale-90 opacity-0 pointer-events-none"
         )}
-        style={{ backgroundColor: "hsl(var(--card) / 0.85)" }}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600/90 via-primary/90 to-purple-600/90 px-4 py-3.5 flex items-center justify-between border-b border-white/10 shrink-0">
+        <div className="bg-[#16120E] px-4 py-3.5 flex items-center justify-between border-b border-[#D4A43A]/20 shrink-0">
           <div className="flex items-center gap-3">
             <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/60 border border-white/10">
               <Bot size={18} className="text-white" />
               <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-[#080b16]"></span>
             </div>
             <div className="text-left">
-              <h3 className="text-sm font-bold text-white tracking-wide flex items-center gap-1.5">
+              <h3 className="text-sm font-display font-bold text-white tracking-wide flex items-center gap-1.5">
                 WebMantu Agent
                 <Sparkles size={12} className="text-yellow-300 animate-pulse" />
               </h3>
-              <p className="text-[10px] text-blue-100/90 font-medium">Available 24 hours for your help</p>
+              <p className="text-[10px] text-[#E7C46A]/90 font-medium">Available 24 hours for your help</p>
             </div>
           </div>
 
@@ -287,10 +286,10 @@ export const Chatbot: React.FC = () => {
             >
               <div
                 className={cn(
-                  "px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap select-text shadow-sm",
+                  "px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap select-text shadow-sm font-sans",
                   msg.sender === "user"
-                    ? "bg-gradient-to-r from-primary to-indigo-600 text-white rounded-tr-none"
-                    : "bg-slate-900/90 text-slate-100 border border-slate-800/80 rounded-tl-none"
+                    ? "bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] font-medium rounded-tr-none"
+                    : "bg-[#16120E] text-[#FDFBF7] border border-[#2A221A] rounded-tl-none"
                 )}
               >
                 {renderMessageText(msg.text)}
@@ -304,10 +303,10 @@ export const Chatbot: React.FC = () => {
           {/* Typing Indicator */}
           {isLoading && (
             <div className="flex flex-col items-start max-w-[85%] mr-auto animate-in fade-in-30 duration-200">
-              <div className="px-4 py-3 rounded-2xl rounded-tl-none bg-slate-900/90 text-slate-100 border border-slate-800/80 flex items-center gap-1.5 h-9">
-                <span className="h-2 w-2 rounded-full bg-primary/70 animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                <span className="h-2 w-2 rounded-full bg-primary/70 animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                <span className="h-2 w-2 rounded-full bg-primary/70 animate-bounce" style={{ animationDelay: '300ms' }}></span>
+              <div className="px-4 py-3 rounded-2xl rounded-tl-none bg-[#16120E] text-[#FDFBF7] border border-[#2A221A] flex items-center gap-1.5 h-9">
+                <span className="h-2 w-2 rounded-full bg-[#D4A43A]/80 animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                <span className="h-2 w-2 rounded-full bg-[#D4A43A]/80 animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                <span className="h-2 w-2 rounded-full bg-[#D4A43A]/80 animate-bounce" style={{ animationDelay: '300ms' }}></span>
               </div>
             </div>
           )}
@@ -317,7 +316,7 @@ export const Chatbot: React.FC = () => {
         {/* Input Form */}
         <form
           onSubmit={handleSendMessage}
-          className="p-3 bg-slate-950/40 border-t border-white/5 flex items-center gap-2 shrink-0"
+          className="p-3 bg-[#0B0B0C] border-t border-[#D4A43A]/20 flex items-center gap-2 shrink-0"
         >
           <input
             ref={chatInputRef}
@@ -326,12 +325,12 @@ export const Chatbot: React.FC = () => {
             onChange={(e) => setInputValue(e.target.value)}
             disabled={isLoading}
             placeholder="Type your message..."
-            className="flex-1 bg-slate-900/60 text-slate-100 text-sm border border-slate-800/60 rounded-xl px-4 py-2.5 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/40 disabled:opacity-50 transition-all placeholder:text-muted-foreground/60"
+            className="flex-1 bg-[#16120E] text-[#FDFBF7] text-sm border border-[#2A221A] rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#D4A43A]/50 focus:shadow-[0_0_10px_rgba(212,164,58,0.15)] disabled:opacity-50 transition-all placeholder:text-[#8C7A6B] font-sans"
           />
           <button
             type="submit"
             disabled={isLoading || !inputValue.trim()}
-            className="bg-primary hover:bg-primary/90 disabled:bg-slate-800 disabled:opacity-50 text-white rounded-xl p-2.5 transition-all flex items-center justify-center shrink-0 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] cursor-pointer active:scale-95"
+            className="bg-[#D4A43A] hover:bg-[#E7C46A] disabled:bg-[#2A221A] disabled:text-[#8C7A6B] text-[#16120E] rounded-xl p-2.5 transition-all flex items-center justify-center shrink-0 hover:shadow-[0_0_15px_rgba(212,164,58,0.4)] cursor-pointer active:scale-95"
           >
             <Send size={15} />
           </button>

@@ -1,0 +1,45 @@
+# WebMantu Digital
+
+> A premium digital growth and AI automation agency based in Nagpur, Maharashtra (India). We specialize in custom website development, local SEO, and AI business automation.
+
+## Target Industries
+We have deep domain expertise in building high-performance websites, digital solutions, and automation pipelines for:
+- Real Estate
+- Interior Design
+- Spa & Wellness
+- Ayurveda Clinics & Healthcare
+- Local Businesses & Premium Service Providers
+
+## Core Services
+
+### 1. Custom Website Development
+- **URL**: /services/custom-web-dev
+- **Description**: We build high-performance, custom-coded web applications using React, Tailwind CSS, and modern frameworks. Our focus is on ultra-fast loading speeds, premium UI/UX, and high conversion rates.
+
+### 2. AI & Business Automation
+- **URL**: /services/ai-automation
+- **Description**: We deploy custom AI automation pipelines. We build intelligent AI chatbots, integrate WhatsApp for business workflows, and automate repetitive operational tasks to reduce overhead and improve efficiency.
+
+### 3. SEO & Local Growth (GEO)
+- **URL**: /services/seo
+- **Description**: We provide traditional Search Engine Optimization (SEO) and Generative Engine Optimization (GEO). We help local businesses rank highly on Google Maps and ensure their content is structured to be cited as a source by AI engines (like ChatGPT and Perplexity).
+
+### 4. Website Upgradation & Improvement
+- **URL**: /services/website-improvement
+- **Description**: We revamp legacy websites into modern, conversion-optimized platforms with improved Core Web Vitals, responsive layouts, and aesthetic design.
+
+### 5. Content & Video Production
+- **URL**: /services/video-production
+- **Description**: We offer end-to-end media production including corporate videos, promotional content, and digital media assets.
+
+## Key Facts & Differentiators
+- **Location**: Indora square, Nagpur, Maharashtra 440017, India.
+- **Global Reach**: We provide 24/7 global support and partner with clients worldwide.
+- **Technology Stack**: React, Vite, Node.js, Python, n8n, and custom LLM integrations.
+- **Methodology**: We prioritize objective, data-driven strategies and scalable digital infrastructure over short-term hacks.
+
+## Important Links
+- **Blog & Insights**: /blog
+- **Free Consultation / Contact**: /contact
+- **Direct WhatsApp Contact**: https://wa.me/917499147597
+- **General Inquiry Email**: info@webmantu.com

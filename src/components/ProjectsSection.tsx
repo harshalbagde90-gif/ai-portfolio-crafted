@@ -12,8 +12,9 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 /* ─────────────────────────── data ─────────────────────────── */
+import { Link } from "react-router-dom";
 
-const demoProjects = [
+export const demoProjects = [
   {
     title: "NexusAI Automation & Workflow Solutions",
     description:
@@ -68,9 +69,9 @@ const demoProjects = [
     intervalMs: 5000,
   },
   {
-    title: "Quantum Trade – AI-Powered Trading Platform (Demo Project)",
+    title: "Quantum Trade – AI-Powered Trading Platform Blueprint",
     description:
-      "Quantum Trade is a demo AI-powered trading platform designed to showcase automated trading concepts using AI-driven market analysis and real-time data processing.",
+      "Quantum Trade is a proprietary AI-powered trading platform blueprint designed to showcase automated trading concepts using AI-driven market analysis and real-time data processing.",
     techStack: [],
     tags: ["AI Trading", "Automated Bots", "Market Analysis", "Trading Technology", "FinTech"],
     link: "https://quantam-trade.netlify.app/",
@@ -86,7 +87,7 @@ const demoProjects = [
   },
 ];
 
-const liveProjects = [
+export const liveProjects = [
   {
     title: "NumGuru – AI-Powered Numerology Platform",
     description:
@@ -94,8 +95,14 @@ const liveProjects = [
     techStack: ["AI Algorithm"],
     tags: ["Numerology", "AI-Powered", "Cosmic Blueprint", "Personalized Report", "Live Platform"],
     link: "https://www.numguru.online/",
-    images: ["/Images/Project images/NUmguru/Numguru mockup image.png"],
-    autoStart: false,
+    images: [
+      "/Images/Project images/NUmguru/num 1.PNG",
+      "/Images/Project images/NUmguru/num 2.PNG",
+      "/Images/Project images/NUmguru/num 3.PNG",
+      "/Images/Project images/NUmguru/num 4.PNG",
+      "/Images/Project images/NUmguru/num 5.PNG",
+    ],
+    autoStart: true,
     intervalMs: 5000,
     isLive: true,
     features: [
@@ -112,7 +119,11 @@ const liveProjects = [
     techStack: [],
     tags: ["Productivity", "Task Management", "Scheduling", "Organization", "Live App"],
     link: "https://www.tangytask.com/",
-    images: ["/Images/Project images/Tangy task/tangy task.png"],
+    images: [
+      "/Images/Project images/Tangy task/Tangy 1.PNG",
+      "/Images/Project images/Tangy task/Tangy 2.PNG",
+      "/Images/Project images/Tangy task/tangy  3.PNG",
+    ],
     autoStart: false,
     intervalMs: 5000,
     isLive: true,
@@ -130,10 +141,12 @@ const ImageCarousel = ({
   images,
   autoStart = false,
   intervalMs = 5000,
+  contain = false,
 }: {
   images: string[];
   autoStart?: boolean;
   intervalMs?: number;
+  contain?: boolean;
 }) => {
   const [index, setIndex] = useState(0);
   const [auto, setAuto] = useState(false);
@@ -161,7 +174,7 @@ const ImageCarousel = ({
         <img
           src={images[index]}
           alt=""
-          className="w-full h-full object-cover object-center"
+          className={`w-full h-full ${contain ? "object-contain p-2" : "object-cover object-center"}`}
           loading="lazy"
         />
       </div>
@@ -191,115 +204,48 @@ const ImageCarousel = ({
 
 export const ProjectsSection = () => {
   const { ref, isInView } = useInView();
-  const [activeTab, setActiveTab] = useState<"demo" | "live">("demo");
-
-  const projects = activeTab === "demo" ? demoProjects : liveProjects;
+  
+  // Custom list of specific projects for the homepage
+  const featuredBlueprints = [
+    liveProjects.find(p => p.title.includes("TangyTask")),
+    liveProjects.find(p => p.title.includes("NumGuru")),
+    demoProjects.find(p => p.title.includes("Burn Fat Faster"))
+  ].filter(Boolean);
 
   return (
-    <section id="projects" className="py-16 relative" ref={ref}>
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+    <section id="projects" className="py-20 relative bg-[#0B0B0C]" ref={ref}>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         {/* Header */}
         <div
-          className={`text-center max-w-2xl mx-auto mb-10 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
+          className={`text-center max-w-3xl mx-auto mb-16 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
             }`}
         >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider">
-            My Work
+          <span className="text-[#D4A43A] font-medium font-display text-sm uppercase tracking-[0.14em]">
+            Case Studies
           </span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 mb-4">
-            Featured <span className="text-gradient">Projects</span>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 mb-4 text-white">
+            Proven <span className="bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] bg-clip-text text-transparent">Case Studies</span>
           </h2>
-          <p className="text-muted-foreground">
-            A showcase of my work — from demo builds to live production platforms.
+          <p className="text-[#B9B1A4] font-sans text-lg">
+            A showcase of our high-converting digital frameworks and active production platforms.
           </p>
         </div>
 
-        {/* ── Toggle ── */}
-        <div
-          className={`flex justify-center mb-12 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
-            }`}
-          style={{ animationDelay: "0.1s" }}
-        >
-          <div className="relative flex items-center gap-1 p-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-lg">
-            {/* sliding pill */}
-            <span
-              className="absolute top-1 bottom-1 rounded-full transition-all duration-500 ease-[cubic-bezier(.4,0,.2,1)]"
-              style={{
-                left: activeTab === "demo" ? "4px" : "50%",
-                right: activeTab === "demo" ? "50%" : "4px",
-                background:
-                  activeTab === "demo"
-                    ? "linear-gradient(135deg,#7c3aed,#a855f7)"
-                    : "linear-gradient(135deg,#059669,#10b981)",
-              }}
-            />
-
-            {/* Demo button */}
-            <button
-              onClick={() => setActiveTab("demo")}
-              className={`relative z-10 flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === "demo" ? "text-white" : "text-white/50 hover:text-white/80"
-                }`}
-              aria-label="Show Demo Projects"
-            >
-              <FlaskConical size={15} />
-              Demo Projects
-            </button>
-
-            {/* Live button */}
-            <button
-              onClick={() => setActiveTab("live")}
-              className={`relative z-10 flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === "live" ? "text-white" : "text-white/50 hover:text-white/80"
-                }`}
-              aria-label="Show Live Projects"
-            >
-              <Rocket size={15} />
-              Live &amp; Working
-              {/* live dot */}
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-            </button>
-          </div>
-        </div>
-
-        {/* ── Badge below toggle ── */}
-        <div className="flex justify-center mb-10">
-          {activeTab === "demo" ? (
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-purple-500/10 border border-purple-500/25 text-purple-300">
-              <FlaskConical size={12} />
-              These are showcase / concept builds — not production deployments
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 border border-emerald-500/25 text-emerald-300">
-              <Rocket size={12} />
-              Real platforms actively serving users in production
-            </span>
-          )}
-        </div>
-
         {/* ── Project Grid ── */}
-        <div
-          key={activeTab}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
-        >
-          {projects.map((project, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {featuredBlueprints.map((project: any, idx) => (
             <div
               key={project.title}
               className={`group relative opacity-0 ${isInView ? "animate-fade-up" : ""}`}
               style={{ animationDelay: `${0.2 + idx * 0.15}s`, animationFillMode: "forwards" }}
             >
               <div
-                className={`h-full rounded-2xl glass overflow-hidden transition-all duration-500 group-hover:glow ${(project as any).isLive
-                  ? "ring-1 ring-emerald-500/30 group-hover:ring-emerald-500/60"
-                  : ""
-                  }`}
+                className={`h-full flex flex-col rounded-2xl bg-[#0F0C09] border border-[#2A221A] overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,164,58,0.1)] group-hover:-translate-y-1`}
               >
                 {/* Live badge overlay */}
-                {(project as any).isLive && (
+                {(project as any).isLive &&
+                  !(project as any).title.includes("TangyTask") &&
+                  !(project as any).title.includes("NumGuru") && (
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 backdrop-blur-sm text-emerald-400 text-xs font-semibold">
                     <span className="relative flex h-1.5 w-1.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -315,9 +261,10 @@ export const ProjectsSection = () => {
                     images={project.images}
                     autoStart={(project as any).autoStart}
                     intervalMs={(project as any).intervalMs}
+                    contain={(project as any).title.includes("NumGuru") || (project as any).title.includes("TangyTask")}
                   />
                 ) : (
-                  <div className="h-48 bg-gradient-to-br from-purple-500 to-pink-500 p-6 flex items-center justify-center relative overflow-hidden">
+                  <div className="h-48 bg-gradient-to-br from-[#2A221A] to-[#16120E] p-6 flex items-center justify-center relative overflow-hidden">
                     <div className="w-16 h-16 flex items-center justify-center">
                       <Sparkles size={64} className="text-white/90 group-hover:scale-110 transition-transform duration-500" />
                     </div>
@@ -326,31 +273,19 @@ export const ProjectsSection = () => {
                   </div>
                 )}
 
-                <div className="p-4 md:p-5">
-                  <h3 className="font-display text-lg md:text-xl font-semibold mb-1.5 line-clamp-1">{project.title}</h3>
-                  <p className="text-muted-foreground text-xs md:text-sm mb-3 line-clamp-2">
+                <div className="p-5 md:p-6 flex flex-col flex-1 bg-[#0F0C09]">
+                  <h3 className="font-display text-xl font-bold mb-2 text-[#F5F2EA] line-clamp-1">{project.title}</h3>
+                  <p className="text-[#B9B1A4] font-sans text-sm mb-4 line-clamp-2">
                     {project.description}
                   </p>
 
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-0.5 text-[10px] md:text-xs rounded-md bg-primary/10 text-primary border border-primary/20"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Tags */}
-                  {Array.isArray((project as any).tags) && (project as any).tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {(project as any).tags.map((tag: string) => (
+                  {/* Tags (Max 5) */}
+                  {Array.isArray(project.tags) && project.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {project.tags.slice(0, 5).map((tag: string) => (
                         <span
                           key={tag}
-                          className="px-2 py-0.5 text-[10px] md:text-xs rounded-full bg-white/5 text-white/80 border border-white/10"
+                          className="px-2.5 py-1 text-xs font-sans rounded-full bg-[#16120E] text-[#B9B1A4] border border-[#2A221A]"
                         >
                           {tag}
                         </span>
@@ -358,44 +293,26 @@ export const ProjectsSection = () => {
                     </div>
                   )}
 
-                  {/* Features (live projects only) */}
-                  {Array.isArray((project as any).features) && (project as any).features.length > 0 && (
-                    <ul className="space-y-1.5 mb-5">
-                      {(project as any).features.map((feature: string) => (
-                        <li
-                          key={feature}
-                          className="flex items-center gap-2 text-xs text-muted-foreground"
-                        >
-                          <div className="w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
                   {/* Actions */}
-                  <div className="flex gap-3">
-                    <Button size="sm" className="flex-1" variant="outline" asChild>
+                  <div className="flex gap-3 mt-auto pt-2">
+                    <Button size="sm" className="flex-1 bg-transparent border border-[#D4A43A] text-[#D4A43A] hover:bg-[#D4A43A]/10 hover:text-[#D4A43A] font-display font-semibold transition-all duration-300" asChild>
                       <a href="#contact">
-                        <MessageSquare size={14} className="mr-2" />
+                        <MessageSquare size={16} className="mr-2" />
                         Talk
                       </a>
                     </Button>
                     <Button
                       size="sm"
-                      className={`flex-1 transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-[0.98] ${(project as any).isLive
-                        ? "bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white border-0"
-                        : ""
-                        }`}
+                      className="flex-1 bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A] font-display font-semibold transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(212,164,58,0.2)] border-0"
                       asChild
                     >
                       <a
-                        href={(project as any).link || "#"}
+                        href={project.link || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <ExternalLink size={14} className="mr-2" />
-                        {(project as any).isLive ? "Visit Live" : "Visit"}
+                        <ExternalLink size={16} className="mr-2" />
+                        {project.isLive ? "Visit Live" : "Visit"}
                       </a>
                     </Button>
                   </div>
@@ -404,7 +321,15 @@ export const ProjectsSection = () => {
             </div>
           ))}
         </div>
+
+        {/* ── View All Button ── */}
+        <div className="mt-14 flex justify-center">
+           <Button asChild className="rounded-xl px-8 py-6 bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A] font-semibold font-display transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(212,164,58,0.2)]">
+              <Link to="/case-studies" target="_blank">View All Case Studies</Link>
+           </Button>
+        </div>
       </div>
     </section>
   );
 };
+

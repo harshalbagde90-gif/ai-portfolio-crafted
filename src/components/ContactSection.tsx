@@ -20,37 +20,75 @@ export const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    countryCode: "+91",
+    customCountryCode: "",
     contact: "",
     message: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [sending, setSending] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [whatsappUrl, setWhatsappUrl] = useState("");
+
+  const isTyping = formData.name !== "" || formData.email !== "" || formData.contact !== "" || formData.message !== "";
 
   useEffect(() => {
     emailjs.init("Gbsxgx5a7dejoZsyf");
   }, []);
 
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email) newErrors.email = "Email is required";
+    else if (!emailRegex.test(formData.email)) newErrors.email = "Please enter a valid email address";
+    
+    if (formData.countryCode === "other" && !formData.customCountryCode.trim()) {
+      newErrors.customCountryCode = "Code required";
+    }
+    
+    const phoneRegex = /^[\d\s\-\+()]{7,15}$/;
+    if (!formData.contact) newErrors.contact = "Phone is required";
+    else if (!phoneRegex.test(formData.contact)) newErrors.contact = "Invalid phone format";
+    
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: "" }));
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     try {
       setSending(true);
+      const userPhone = formData.countryCode === "other" ? `${formData.customCountryCode} ${formData.contact}` : `${formData.countryCode} ${formData.contact}`;
 
-      // 1. Send Email via EmailJS (Updated Service ID: service_xcyct6w as per user request)
+      // 1. Send Email via EmailJS
       await emailjs.send(
         "service_xcyct6w",
         "template_h24tt3m",
         {
           name: formData.name,
           email: formData.email,
-          contact: formData.contact,
+          contact: userPhone,
           message: formData.message,
         }
       );
 
       // 2. Prepare WhatsApp URL
       const phoneNumber = "917499147597";
-      const waMessage = `Hello Web Mantu! 🚀%0A%0AI just saw your portfolio and I am interested in your services.%0A%0A*Project Inquiry Details:*%0A👤 *Name:* ${formData.name}%0A📧 *Email:* ${formData.email}%0A📞 *Contact:* ${formData.contact}%0A💬 *Message:* ${formData.message}%0A%0ALooking forward to hearing from you!`;
+      const waMessage = `Hello Web Mantu! 🚀%0A%0AI just saw your portfolio and I am interested in your services.%0A%0A*Project Inquiry Details:*%0A👤 *Name:* ${formData.name}%0A📧 *Email:* ${formData.email}%0A📞 *Contact:* ${userPhone}%0A💬 *Message:* ${formData.message}%0A%0ALooking forward to hearing from you!`;
       const url = `https://wa.me/${phoneNumber}?text=${waMessage}`;
       setWhatsappUrl(url);
 
@@ -58,7 +96,7 @@ export const ContactSection = () => {
       setShowSuccessModal(true);
 
       // 4. Clear Form
-      setFormData({ name: "", email: "", contact: "", message: "" });
+      setFormData({ name: "", email: "", countryCode: "+91", customCountryCode: "", contact: "", message: "" });
     } catch (err) {
       toast({
         title: "Failed to send",
@@ -70,22 +108,19 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-16 relative" ref={ref}>
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent" />
-
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+    <section id="contact" className="py-20 relative bg-[#0B0B0C]" ref={ref}>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <div
           className={`text-center max-w-2xl mx-auto mb-16 ${isInView ? "opacity-100 animate-fade-up" : "opacity-0"
             }`}
         >
-          <span className="text-primary font-medium text-sm uppercase tracking-wider">
+          <span className="text-[#D4A43A] font-medium font-display text-sm uppercase tracking-[0.14em]">
             Get in Touch
           </span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 mb-4">
-            Let's <span className="text-gradient">Connect</span>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 mb-4 text-white">
+            Let's <span className="bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] bg-clip-text text-transparent">Connect</span>
           </h2>
-          <p className="text-muted-foreground mb-8">
+          <p className="text-[#B9B1A4] font-sans text-lg mb-8">
             Have a project in mind? We'd love to hear from you. Let's create
             something amazing together.
           </p>
@@ -111,117 +146,147 @@ export const ContactSection = () => {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className={`${isInView ? "opacity-100 animate-fade-up" : "opacity-0"}`}>
-            <form onSubmit={handleSubmit} className="space-y-6 glass p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden shadow-2xl">
-              {/* Decorative background glow inside form */}
-              <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative p-[1px] rounded-[1.5rem] group overflow-hidden shadow-2xl">
+              {/* Elegant Border Sweep Effect (Hover) */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] aspect-square bg-[conic-gradient(from_0deg,transparent_0_340deg,#D4A43A_360deg)] animate-border-spin opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              
+              <form onSubmit={handleSubmit} className="bg-[#FDFBF7] p-8 md:p-12 rounded-[calc(1.5rem-1px)] border-2 border-[#D9D2C7] hover:border-[#C9BEAE] transition-all duration-700 hover:scale-[1.02] hover:-translate-y-1 ease-out hover:shadow-[0_20px_40px_-15px_rgba(212,164,58,0.2)] relative overflow-hidden h-full w-full z-10">
+                {Object.keys(errors).length > 0 && (
+                  <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-medium">
+                    Please fill out all required fields correctly to proceed.
+                  </div>
+                )}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Left Column */}
+                <div className="space-y-6 flex flex-col">
+                  <div className="relative z-10 group">
+                    <Input
+                      name="name"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className={`h-14 bg-white border ${errors.name ? 'border-red-400 focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.15)]' : 'border-[#EAE3D9] focus:border-[#D4A43A] hover:border-[#D4A43A]/50 focus:shadow-[0_0_15px_rgba(212,164,58,0.15)]'} text-[#16120E] placeholder:text-[#A3988E] focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 transition-all duration-300 rounded-xl px-5 font-sans`}
+                    />
+                    {errors.name && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 left-1">{errors.name}</p>}
+                  </div>
+                  <div className="relative z-10 group">
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`h-14 bg-white border ${errors.email ? 'border-red-400 focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.15)]' : 'border-[#EAE3D9] focus:border-[#D4A43A] hover:border-[#D4A43A]/50 focus:shadow-[0_0_15px_rgba(212,164,58,0.15)]'} text-[#16120E] placeholder:text-[#A3988E] focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 transition-all duration-300 rounded-xl px-5 font-sans`}
+                    />
+                    {errors.email && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 left-1">{errors.email}</p>}
+                  </div>
+                  <div className="relative z-10 group">
+                    <div className="flex gap-2">
+                      <select 
+                        name="countryCode"
+                        value={formData.countryCode}
+                        onChange={handleInputChange}
+                        className="h-14 w-28 bg-white border border-[#EAE3D9] text-[#16120E] focus:border-[#D4A43A] hover:border-[#D4A43A]/50 outline-none transition-all duration-300 rounded-xl px-2 font-sans cursor-pointer"
+                      >
+                        <option value="+91">🇮🇳 +91</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+61">🇦🇺 +61</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="other">🌍 Other</option>
+                      </select>
+                      {formData.countryCode === "other" && (
+                        <Input 
+                          type="text"
+                          name="customCountryCode"
+                          value={formData.customCountryCode}
+                          onChange={handleInputChange}
+                          placeholder="+00"
+                          className={`h-14 w-20 bg-white border ${errors.customCountryCode ? 'border-red-400 focus:border-red-500' : 'border-[#EAE3D9] focus:border-[#D4A43A]'} text-[#16120E] focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl px-2`}
+                        />
+                      )}
+                      <Input
+                        type="tel"
+                        name="contact"
+                        placeholder="Contact Number"
+                        value={formData.contact}
+                        onChange={handleInputChange}
+                        className={`flex-1 h-14 bg-white border ${errors.contact ? 'border-red-400 focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.15)]' : 'border-[#EAE3D9] focus:border-[#D4A43A] hover:border-[#D4A43A]/50 focus:shadow-[0_0_15px_rgba(212,164,58,0.15)]'} text-[#16120E] placeholder:text-[#A3988E] focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 transition-all duration-300 rounded-xl px-4 font-sans`}
+                      />
+                    </div>
+                    {errors.contact && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 left-1">{errors.contact}</p>}
+                    {errors.customCountryCode && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 left-1">{errors.customCountryCode}</p>}
+                  </div>
+                </div>
 
-              <div className="relative z-10 group">
-                <Input
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  required
-                  className="h-14 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5"
-                />
+                {/* Right Column */}
+                <div className="relative z-10 group h-full pt-4 md:pt-0">
+                  <Textarea
+                    name="message"
+                    placeholder="Your Message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={`h-[180px] md:h-full bg-white border ${errors.message ? 'border-red-400 focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.15)]' : 'border-[#EAE3D9] focus:border-[#D4A43A] hover:border-[#D4A43A]/50 focus:shadow-[0_0_15px_rgba(212,164,58,0.15)]'} text-[#16120E] placeholder:text-[#A3988E] focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 transition-all duration-300 rounded-xl px-5 py-4 resize-none font-sans`}
+                  />
+                  {errors.message && <p className="text-red-500 text-xs mt-1 absolute -bottom-4 left-1">{errors.message}</p>}
+                </div>
+
+                {/* Submit Button */}
+                <div className="md:col-span-2 mt-4 md:mt-2">
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className={`w-full h-14 rounded-xl text-lg font-bold font-sans transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(212,164,58,0.2)] border-0 relative z-10 ${
+                      isTyping 
+                        ? "btn-shimmer-gold" 
+                        : "bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A]"
+                    }`} 
+                    disabled={sending}
+                  >
+                    <Send size={20} className="mr-2" />
+                    {sending ? "Sending..." : "Get Free Consultation"}
+                  </Button>
+                </div>
               </div>
-              <div className="relative z-10 group">
-                <Input
-                  type="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  required
-                  className="h-14 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5"
-                />
-              </div>
-              <div className="relative z-10 group">
-                <Input
-                  type="tel"
-                  placeholder="Contact Number"
-                  value={formData.contact}
-                  onChange={(e) =>
-                    setFormData({ ...formData, contact: e.target.value })
-                  }
-                  required
-                  className="h-14 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5"
-                />
-              </div>
-              <div className="relative z-10 group">
-                <Textarea
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  required
-                  rows={5}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-primary/50 hover:border-white/20 transition-all duration-300 rounded-xl px-5 py-4 resize-none"
-                />
-              </div>
-              <Button type="submit" size="lg" className="w-full h-14 rounded-xl text-lg font-semibold glow glow-on-hover transform-gpu transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] relative z-10" disabled={sending}>
-                <Send size={20} className="mr-2" />
-                {sending ? "Sending..." : "Send Message"}
-              </Button>
             </form>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Thank You Lightbox (Success Modal) */}
       <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
-        <DialogContent className="sm:max-w-md glass border-white/10 text-center py-10 shadow-2xl overflow-hidden">
-          {/* Top Decorative Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#25D366] to-transparent opacity-50 blur-sm" />
-
-          <DialogHeader>
-            <div className="mx-auto w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mb-6 animate-pulse shadow-[0_0_30px_rgba(37,211,102,0.3)]">
-              <CheckCircle2 className="text-emerald-500 w-12 h-12" />
+        <DialogContent className="sm:max-w-md bg-[#16120E] border border-[#2A221A] text-center py-10 shadow-2xl overflow-hidden rounded-2xl">
+          <DialogHeader className="text-center sm:text-center">
+            <div className="mx-auto w-16 h-16 bg-[#25D366]/10 rounded-full flex items-center justify-center mb-6 border border-[#25D366]/20">
+              <CheckCircle2 className="text-[#25D366] w-8 h-8" />
             </div>
-            <DialogTitle className="text-3xl font-bold font-display text-white mb-2">
-              Thank You for Your Enquiry!
+            <DialogTitle className="text-3xl font-bold font-display text-[#D4A43A] mb-2">
+              Thank You!
             </DialogTitle>
-            <DialogDescription className="text-muted-foreground text-lg py-2 leading-relaxed">
-              We've received your request. To get a <span className="text-[#25D366] font-bold drop-shadow-[0_0_10px_rgba(37,211,102,0.5)]">Quick response</span>, let's chat on WhatsApp.
+            <DialogDescription className="text-[#B9B1A4] text-lg py-2 leading-relaxed font-sans">
+              We've received your request. To get a <span className="text-white font-semibold">quick response</span>, let's chat directly on WhatsApp.
             </DialogDescription>
           </DialogHeader>
 
-          <div className="flex flex-col gap-4 mt-8">
-            <div className="relative group">
-              {/* Multi-layered Glow Effect */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-[#25D366] via-[#4ade80] to-[#128C7E] rounded-full blur-md opacity-40 group-hover:opacity-100 transition duration-500 group-hover:duration-200"></div>
-              <div className="absolute -inset-1 bg-[#25D366] rounded-full blur-xl opacity-20 animate-pulse"></div>
-
-              <Button
-                size="lg"
-                className="relative w-full bg-[#25D366] hover:bg-[#20bd5c] text-white font-bold h-16 text-xl rounded-full transition-all duration-300 transform hover:scale-[1.02] shadow-[0_10px_20px_rgba(37,211,102,0.4)]"
-                onClick={() => {
-                  window.open(whatsappUrl, "_blank");
-                  setShowSuccessModal(false);
-                }}
-              >
-                <MessageSquare className="mr-3 w-6 h-6" />
-                Connect on WhatsApp
-              </Button>
-            </div>
-
-            <div className="flex items-center justify-center gap-2 animate-fade-in py-2">
-              <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#25D366]/40" />
-              <p className="text-[#25D366] text-sm font-bold tracking-widest uppercase">
-                🚀 Quick response on WhatsApp
-              </p>
-              <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#25D366]/40" />
-            </div>
+          <div className="flex flex-col gap-4 mt-6 px-4">
+            <Button
+              size="lg"
+              className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold h-14 text-lg rounded-xl transition-all duration-300 shadow-sm"
+              onClick={() => {
+                window.open(whatsappUrl, "_blank");
+                setShowSuccessModal(false);
+              }}
+            >
+              <MessageSquare className="mr-3 w-5 h-5" />
+              Connect on WhatsApp
+            </Button>
 
             <button
               onClick={() => setShowSuccessModal(false)}
-              className="mt-4 text-stone-500 hover:text-white transition-colors text-sm font-medium"
+              className="mt-4 text-[#A3988E] hover:text-white transition-colors text-sm font-medium font-sans"
             >
               I'll wait for an email reply
             </button>

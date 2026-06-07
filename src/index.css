@@ -4,42 +4,73 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@keyframes slow-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.02); }
+}
+
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-slow-float {
+  animation: slow-float 45s ease-in-out infinite;
+}
+.animate-slow-float-reverse {
+  animation: slow-float 45s ease-in-out infinite reverse;
+}
+
+.animate-marquee {
+  animation: marquee 80s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+.animate-marquee-reverse {
+  animation: marquee 80s linear infinite reverse;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
 @layer base {
   :root {
-    --background: 230 25% 7%;
-    --foreground: 210 40% 98%;
+    --background: 240 4% 5%;
+    --foreground: 44 33% 94%;
 
-    --card: 230 25% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 30 11% 9%;
+    --card-foreground: 44 33% 94%;
 
-    --popover: 230 25% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 30 11% 9%;
+    --popover-foreground: 44 33% 94%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 230 25% 7%;
+    --primary: 41 64% 53%;
+    --primary-foreground: 240 4% 5%;
 
-    --secondary: 230 20% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 30 11% 15%;
+    --secondary-foreground: 44 33% 94%;
 
-    --muted: 230 20% 18%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 30 11% 15%;
+    --muted-foreground: 36 12% 70%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 230 25% 7%;
+    --accent: 41 64% 53%;
+    --accent-foreground: 240 4% 5%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 230 20% 18%;
-    --input: 230 20% 18%;
-    --ring: 217 91% 60%;
+    --border: 30 11% 15%;
+    --input: 30 11% 15%;
+    --ring: 41 64% 53%;
 
     --radius: 0.75rem;
 
     /* Custom portfolio colors */
-    --glow: 217 91% 60%;
-    --gradient-start: 217 91% 60%;
-    --gradient-end: 280 80% 60%;
+    --glow: 41 64% 53%;
+    --gradient-start: 41 64% 53%;
+    --gradient-end: 43 73% 66%;
   }
 }
 
@@ -98,6 +129,81 @@
     100% {
       box-shadow: 0 0 25px hsl(var(--primary) / 0.7), 0 0 50px hsl(var(--primary) / 0.3);
     }
+  }
+
+  @keyframes heroZoom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+
+  .hero-zoom-anim {
+    animation: heroZoom 6s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @keyframes orbPulse1 {
+    0%, 100% { transform: scale(1); opacity: 0.15; }
+    50% { transform: scale(1.2); opacity: 0.3; }
+  }
+  @keyframes orbPulse2 {
+    0%, 100% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(1.3); opacity: 0.2; }
+  }
+  @keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .hero-orb-1 {
+    animation: orbPulse1 8s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  .hero-orb-2 {
+    animation: orbPulse2 10s ease-in-out infinite 1s;
+    will-change: transform, opacity;
+  }
+  .hero-glow {
+    animation: glowPulse 4s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  .perf-card {
+    will-change: transform;
+    transition: transform 0.3s ease, border-color 0.5s ease;
+  }
+  .perf-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(132, 0, 255, 0.15);
+  }
+
+  /* Gradient shadow button wrapper */
+  .gradient-shadow {
+    position: relative;
+  }
+
+  /* Form Premium Effects */
+  @keyframes border-spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-border-spin {
+    animation: border-spin 4s linear infinite;
+  }
+
+  @keyframes shimmer-gold {
+    0% {
+      background-position: 200% center;
+    }
+    100% {
+      background-position: -200% center;
+    }
+  }
+  .btn-shimmer-gold {
+    background: linear-gradient(110deg, #D4A43A 40%, #FFF4D0 50%, #D4A43A 60%);
+    background-size: 200% auto;
+    animation: shimmer-gold 2.5s linear infinite;
+    color: #16120E;
   }
 
   /* Gradient shadow button wrapper */

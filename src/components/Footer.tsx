@@ -9,8 +9,8 @@ const navLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="py-12 border-t border-border/50 bg-background/50 backdrop-blur-sm mt-16">
-      <div className="container mx-auto px-4 md:px-6">
+    <footer className="py-12 border-t border-[#D4A43A]/20 bg-[#0B0B0C] mt-16 font-sans">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16 mb-12">
           {/* Brand & Logo */}
           <div className="flex flex-col gap-4">
@@ -26,13 +26,13 @@ export const Footer = () => {
               WebMantu is a results-driven Web Agency building intelligent digital experiences, scalable applications, and automations that help businesses generate leads and acquire more clients.
             </p>
             <div className="flex gap-4 mt-2">
-              <a href="https://www.instagram.com/webmantu_digital/" target="_blank" rel="noreferrer" className="p-2 bg-muted/50 hover:bg-primary/20 hover:text-primary rounded-full transition-all duration-300">
+              <a href="https://www.instagram.com/webmantu_digital/" target="_blank" rel="noreferrer" className="p-2 bg-[#16120E] hover:bg-[#D4A43A]/10 hover:text-[#D4A43A] text-muted-foreground border border-transparent hover:border-[#D4A43A]/30 rounded-full transition-all duration-300">
                 <Instagram size={18} />
               </a>
-              <a href="https://www.facebook.com/people/WebMantu-Digital/61563026597776/" target="_blank" rel="noreferrer" className="p-2 bg-muted/50 hover:bg-primary/20 hover:text-primary rounded-full transition-all duration-300">
+              <a href="https://www.facebook.com/people/WebMantu-Digital/61563026597776/" target="_blank" rel="noreferrer" className="p-2 bg-[#16120E] hover:bg-[#D4A43A]/10 hover:text-[#D4A43A] text-muted-foreground border border-transparent hover:border-[#D4A43A]/30 rounded-full transition-all duration-300">
                 <Facebook size={18} />
               </a>
-              <a href="https://www.youtube.com/@WebMantuDigital" target="_blank" rel="noreferrer" className="p-2 bg-muted/50 hover:bg-primary/20 hover:text-primary rounded-full transition-all duration-300">
+              <a href="https://www.youtube.com/@WebMantuDigital" target="_blank" rel="noreferrer" className="p-2 bg-[#16120E] hover:bg-[#D4A43A]/10 hover:text-[#D4A43A] text-muted-foreground border border-transparent hover:border-[#D4A43A]/30 rounded-full transition-all duration-300">
                 <Youtube size={18} />
               </a>
             </div>
@@ -40,13 +40,13 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div className="flex flex-col gap-4">
-            <h3 className="font-semibold text-foreground text-lg">Quick Links</h3>
+            <h3 className="font-display font-semibold text-white text-lg">Quick Links</h3>
             <nav className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm w-fit"
+                  className="text-muted-foreground hover:text-[#D4A43A] transition-colors text-sm w-fit"
                 >
                   {link.name}
                 </a>
@@ -56,16 +56,16 @@ export const Footer = () => {
 
           {/* Contact Info */}
           <div className="flex flex-col gap-4">
-            <h3 className="font-semibold text-foreground text-lg">Contact Us</h3>
+            <h3 className="font-display font-semibold text-white text-lg">Contact Us</h3>
             <ul className="flex flex-col gap-4">
               <li>
-                <a href="mailto:info@webmantu.com" className="group flex items-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="mailto:info@webmantu.com" className="group flex items-start gap-3 text-sm text-muted-foreground hover:text-[#D4A43A] transition-colors">
                   <Mail size={16} className="mt-0.5 shrink-0" />
                   <span>info@webmantu.com</span>
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/917499147597" target="_blank" rel="noreferrer" className="group flex items-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://wa.me/917499147597" target="_blank" rel="noreferrer" className="group flex items-start gap-3 text-sm text-muted-foreground hover:text-[#D4A43A] transition-colors">
                   <Phone size={16} className="mt-0.5 shrink-0" />
                   <span>+91 7499147597</span>
                 </a>
@@ -82,13 +82,13 @@ export const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="pt-8 border-t border-border/30 text-center flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-[#D4A43A]/20 text-center flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">
             &copy; {new Date().getFullYear()} Web Mantu. All rights reserved.
           </p>
           <div className="flex gap-4 text-sm text-muted-foreground">
-            <a href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-primary transition-colors">Terms & Conditions</a>
+            <a href="/privacy-policy" className="hover:text-[#D4A43A] transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-[#D4A43A] transition-colors">Terms & Conditions</a>
           </div>
         </div>
       </div>
