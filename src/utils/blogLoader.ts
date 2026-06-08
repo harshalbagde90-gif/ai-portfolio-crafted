@@ -25,10 +25,17 @@ export const getAllBlogs = (): BlogPostData[] => {
     const rawData = module.default || module;
     
     // Normalize keys to handle AI variations
+    let imageUrl = rawData["image url"] || rawData.image || "/Images/placeholder.jpg";
+    
+    // Auto-fix AI hallucinated image paths
+    if (imageUrl.startsWith("/blog-images/")) {
+      imageUrl = imageUrl.replace("/blog-images/", "/Images/Blog/");
+    }
+
     const blogData: BlogPostData = {
       ...rawData,
       "AI title": rawData["AI title"] || rawData.title || "Untitled Blog",
-      "image url": rawData["image url"] || rawData.image || "/Images/placeholder.jpg",
+      "image url": imageUrl,
       status: rawData.status || "Draft"
     };
     
