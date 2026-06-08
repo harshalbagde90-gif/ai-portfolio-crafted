@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
-import { getBlogBySlug, BlogPostData } from "@/utils/blogLoader";
+import { getBlogBySlug, BlogPostData, getAllBlogs } from "@/utils/blogLoader";
 import { ChevronLeft, ChevronRight, Calendar, Clock, Share2, X, List } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
@@ -18,6 +18,7 @@ const BlogPost = () => {
   const [blog, setBlog] = useState<BlogPostData | null>(null);
   const [isTocOpen, setIsTocOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>('');
+  const [relatedBlogs, setRelatedBlogs] = useState<BlogPostData[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,6 +26,11 @@ const BlogPost = () => {
       const foundBlog = getBlogBySlug(slug);
       if (foundBlog) {
         setBlog(foundBlog);
+        
+        // Get up to 3 related blogs
+        const all = getAllBlogs();
+        const related = all.filter(b => b.id !== foundBlog.id).slice(0, 3);
+        setRelatedBlogs(related);
       } else {
         navigate("/blog");
       }
@@ -148,8 +154,8 @@ const BlogPost = () => {
             <div className="flex flex-wrap items-center justify-between gap-6 border-y border-[#1A1A1A] py-5 mb-12">
               <div className="flex items-center flex-wrap gap-6 md:gap-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-full border border-[#D4A43A]/30 bg-[#0A0A0A] flex items-center justify-center">
-                    <img src="/Logo/web mantu.png" alt="WebMantu" className="w-6 h-6 object-contain opacity-80" />
+                  <div className="w-11 h-11 rounded-full border border-[#D4A43A]/40 bg-[#0A0A0A] flex items-center justify-center overflow-hidden">
+                    <img src="/favicon.png" alt="WebMantu" className="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-300" />
                   </div>
                   <div>
                     <p className="text-[15px] font-semibold text-gray-200 font-display">WebMantu Editorial</p>
@@ -183,8 +189,8 @@ const BlogPost = () => {
         </div>
 
         {/* Hero Image */}
-        <div className="w-full max-w-[90rem] mx-auto px-4 md:px-6 mb-20">
-          <div className="aspect-[21/9] md:aspect-[3/1] w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl relative">
+        <div className="w-full max-w-5xl mx-auto px-4 md:px-6 mb-20">
+          <div className="aspect-video w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl relative">
             <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent z-10" />
             <img 
               src={blog["image url"]} 
@@ -223,8 +229,54 @@ const BlogPost = () => {
                 {blog.content}
               </ReactMarkdown>
             </article>
+
+            {/* Call to Action */}
+            <div className="mt-20 p-8 md:p-12 bg-gradient-to-br from-[#16120E] to-[#0A0A0A] border border-[#D4A43A]/30 rounded-3xl text-center relative overflow-hidden group shadow-[0_0_30px_rgba(212,164,58,0.1)]">
+              <div className="absolute inset-0 bg-[#D4A43A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 relative z-10">Ready to Scale Your Business?</h3>
+              <p className="text-gray-400 font-body mb-8 max-w-2xl mx-auto relative z-10 text-lg">
+                Don't settle for 'off-the-shelf' solutions when you can have a custom-engineered competitive advantage. Let's build something extraordinary together.
+              </p>
+              <Link to="/contact" className="inline-flex items-center gap-2 bg-[#D4A43A] text-black px-8 py-4 rounded-full font-bold font-mono tracking-wide hover:bg-[#E7C46A] hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(212,164,58,0.3)] relative z-10">
+                CLAIM YOUR FREE AUDIT <ChevronRight size={18} />
+              </Link>
+            </div>
           </div>
         </div>
+
+        {/* Related Articles */}
+        {relatedBlogs.length > 0 && (
+          <div className="container mx-auto px-4 md:px-8 mt-24">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-center justify-between mb-10">
+                <h2 className="text-3xl md:text-4xl font-display font-bold text-white">More <span className="text-[#D4A43A]">Insights</span></h2>
+                <Link to="/blog" className="text-[#D4A43A] font-mono text-sm tracking-widest uppercase hover:text-[#E7C46A] flex items-center gap-1 group">
+                  View All <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {relatedBlogs.map((b) => (
+                  <Link 
+                    key={b.id} 
+                    to={`/blog/${b.slug}`}
+                    className="group flex flex-col bg-[#0F0C09] border border-white/5 hover:border-[#D4A43A]/40 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(212,164,58,0.15)]"
+                  >
+                    <div className="aspect-video overflow-hidden relative">
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                      <img src={b["image url"]} alt={b["AI title"]} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col">
+                      <span className="text-[#D4A43A] text-[10px] font-mono tracking-widest uppercase mb-3 block">{b.category}</span>
+                      <h3 className="text-lg font-display font-bold text-white group-hover:text-[#D4A43A] transition-colors leading-tight mb-3">{b["AI title"]}</h3>
+                      <p className="text-gray-500 text-sm font-body line-clamp-2 mt-auto">{b.excerpt}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Floating Browse Button */}
@@ -257,8 +309,8 @@ const BlogPost = () => {
       >
         <div className="flex items-center justify-between p-8 pt-12 pb-6">
           <div>
-            <p className="text-[11px] font-bold tracking-[0.25em] text-[#D4A43A] uppercase mb-3 font-mono">Navigate Article</p>
-            <h3 className="text-4xl font-bold text-white tracking-tight" style={{ fontFamily: "Georgia, serif" }}>Blog Guide</h3>
+            <p className="text-[11px] font-bold tracking-[0.25em] text-[#D4A43A] uppercase mb-2 font-mono">Navigate Article</p>
+            <h3 className="text-2xl font-bold font-display text-white tracking-tight">Blog Guide</h3>
           </div>
           <button 
             onClick={() => setIsTocOpen(false)}
@@ -310,7 +362,7 @@ const BlogPost = () => {
                       }`}>
                         Section {heading.sectionNum}
                       </p>
-                      <p className={`font-display text-lg font-bold transition-colors duration-200 leading-snug ${
+                      <p className={`font-display text-base font-bold transition-colors duration-200 leading-snug ${
                         isActive ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'
                       }`}>
                         {heading.text}

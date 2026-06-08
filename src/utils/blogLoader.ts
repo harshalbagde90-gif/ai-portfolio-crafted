@@ -1,6 +1,6 @@
 export interface BlogPostData {
-  "sr.num": number;
-  "Real topic": string;
+  "sr.num"?: number;
+  "Real topic"?: string;
   id: string;
   "AI title": string;
   slug: string;
@@ -22,12 +22,19 @@ export const getAllBlogs = (): BlogPostData[] => {
   
   for (const path in blogModules) {
     const module = blogModules[path] as any;
-    // Vite imports JSON files directly as default exports or the object itself
-    const blogData = module.default || module;
+    const rawData = module.default || module;
     
-    // Only include published blogs
-    if (blogData.status === "Published") {
-      blogs.push(blogData as BlogPostData);
+    // Normalize keys to handle AI variations
+    const blogData: BlogPostData = {
+      ...rawData,
+      "AI title": rawData["AI title"] || rawData.title || "Untitled Blog",
+      "image url": rawData["image url"] || rawData.image || "/Images/placeholder.jpg",
+      status: rawData.status || "Draft"
+    };
+    
+    // Include if Published or ready
+    if (blogData.status.toLowerCase() === "published" || blogData.status.toLowerCase() === "ready") {
+      blogs.push(blogData);
     }
   }
 

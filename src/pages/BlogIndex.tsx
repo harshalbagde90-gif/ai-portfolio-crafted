@@ -166,11 +166,11 @@ const BlogIndex = () => {
                       <span className="flex items-center gap-1"><Clock size={14} className="text-[#D4A43A]/70" /> {blog.readTime}</span>
                     </div>
                     
-                    <h3 className="text-xl md:text-2xl font-bold font-display text-white mb-3 group-hover:text-[#D4A43A] transition-colors line-clamp-2 leading-snug">
+                    <h3 className="text-lg md:text-xl font-bold font-display text-white mb-3 group-hover:text-[#D4A43A] transition-colors leading-tight">
                       {blog["AI title"]}
                     </h3>
                     
-                    <p className="text-gray-400 font-body text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                    <p className="text-gray-400 font-body text-sm leading-relaxed mb-6 line-clamp-2 flex-1">
                       {blog.excerpt}
                     </p>
                     
