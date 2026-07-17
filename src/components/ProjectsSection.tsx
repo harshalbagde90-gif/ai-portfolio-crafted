@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import { useInView } from "@/hooks/useInView";
 import {
   ExternalLink,
@@ -6,7 +7,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Rocket,
-  FlaskConical,
+  FlaskConical, X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -88,6 +89,32 @@ export const demoProjects = [
 ];
 
 export const liveProjects = [
+  {
+    title: "ORA Spa & Wellness - Premium Luxury Spa",
+    description:
+      "Nagpur's premier luxury spa. We built a high-converting local digital presence showcasing their premium hygiene standards, calm ambiance, and luxury therapies. Our platform continuously drives high-quality local leads and bookings.",
+    techStack: [],
+    tags: ["Real Testimonial", "Local Business", "Lead Generation", "Luxury Spa", "Nagpur"],
+    link: "https://oraspawellness.com/",
+    images: [
+      "/testimonies data/ORA SPA and Wellness/img 1.PNG",
+      "/testimonies data/ORA SPA and Wellness/img 2.PNG",
+      "/testimonies data/ORA SPA and Wellness/img 3.PNG",
+      "/testimonies data/ORA SPA and Wellness/img 4.PNG",
+      "/testimonies data/ORA SPA and Wellness/img 5 photo gallery.PNG",
+      "/testimonies data/ORA SPA and Wellness/img 6 services.PNG",
+    ],
+    autoStart: true,
+    intervalMs: 4000,
+    isLive: true,
+    hasCaseStudyModal: true,
+    features: [
+      "✨ Shubham C: 'Best service, nice interior...'",
+      "💆‍♀️ Kajal S: 'Loved the ambiance and polite staff.'",
+      "🧼 AMITKUMAR: 'Super clean and well-sanitized.'",
+      "📍 Ganeshpeth Colony, Nagpur",
+    ],
+  },
   {
     title: "NumGuru – AI-Powered Numerology Platform",
     description:
@@ -204,13 +231,15 @@ const ImageCarousel = ({
 
 export const ProjectsSection = () => {
   const { ref, isInView } = useInView();
+  const [activeModalId, setActiveModalId] = useState<string | null>(null);
   
   // Custom list of specific projects for the homepage
   const featuredBlueprints = [
-    liveProjects.find(p => p.title.includes("TangyTask")),
-    liveProjects.find(p => p.title.includes("NumGuru")),
-    demoProjects.find(p => p.title.includes("Burn Fat Faster"))
+    liveProjects.find((p: any) => p && p.title.includes("ORA Spa")),
+    liveProjects.find((p: any) => p && p.title.includes("TangyTask")),
+    liveProjects.find((p: any) => p && p.title.includes("NumGuru")),
   ].filter(Boolean);
+  const activeProject = activeModalId ? featuredBlueprints.find((p: any) => p.title === activeModalId) : null;
 
   return (
     <section id="projects" className="py-20 relative bg-[#0B0B0C]" ref={ref}>
@@ -274,7 +303,12 @@ export const ProjectsSection = () => {
                 )}
 
                 <div className="p-5 md:p-6 flex flex-col flex-1 bg-[#0F0C09]">
-                  <h3 className="font-display text-xl font-bold mb-2 text-[#F5F2EA] line-clamp-1">{project.title}</h3>
+                  <h3 
+  className={`font-display text-xl font-bold mb-2 text-[#F5F2EA] line-clamp-1 ${(project as any).hasCaseStudyModal ? 'cursor-pointer hover:text-[#D4A43A] transition-colors hover:underline decoration-[#D4A43A]/50 underline-offset-4' : ''}`}
+  onClick={() => (project as any).hasCaseStudyModal && setActiveModalId(project.title)}
+>
+  {project.title}
+</h3>
                   <p className="text-[#B9B1A4] font-sans text-sm mb-4 line-clamp-2">
                     {project.description}
                   </p>
@@ -322,7 +356,108 @@ export const ProjectsSection = () => {
           ))}
         </div>
 
-        {/* ── View All Button ── */}
+        {/* Modal */}
+        {activeModalId && activeProject && createPortal(
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300 text-left">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0F0C09] border border-[#D4A43A]/30 rounded-2xl shadow-[0_0_50px_rgba(212,164,58,0.15)] flex flex-col">
+            
+            {/* Close Button */}
+            <button 
+              onClick={() => setActiveModalId(null)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-white/10 text-white/70 hover:text-white hover:bg-black/80 transition-all"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Modal Header */}
+            <div className="p-6 md:p-10 pb-6 border-b border-white/5">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-3">
+                ORA Spa & Wellness - Complete Digital Transformation
+              </h2>
+              <p className="text-[#D4A43A] text-lg font-medium">
+                A 360° Brand Strategy & High-Converting Local Ecosystem built entirely from scratch by the WebMantu Team.
+              </p>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 md:p-10 space-y-10">
+              
+              {/* WebMantu Contribution Edge */}
+              <div className="relative p-8 rounded-xl bg-gradient-to-r from-[#D4A43A]/10 to-transparent border-l-4 border-[#D4A43A]">
+                <h3 className="text-xl font-bold text-white font-display mb-3 flex items-center gap-2">
+                  <Sparkles size={20} className="text-[#D4A43A]" /> The WebMantu Edge
+                </h3>
+                <p className="text-[#B9B1A4] leading-relaxed text-[1.05rem]">
+                  From ground zero to Nagpur's premier luxury spa destination online, our team engineered every touchpoint. We didn't just build a website; we executed a complete digital takeover. The WebMantu team personally conducted the professional photoshoot, crafted their entire Social Media presence, and fully optimized their Google My Business profile. If you search for <strong>'ORA Spa and Wellness'</strong> on Google, every premium visual and piece of data you see is proudly curated by WebMantu.
+                </p>
+              </div>
+
+              {/* Client & Vibe */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-sm uppercase tracking-widest text-white/50 mb-3 font-semibold">Location & Vibe</h4>
+                  <ul className="space-y-4">
+                    <li className="flex gap-3 text-[#B9B1A4]">
+                      <span className="shrink-0 mt-1">📍</span>
+                      <span>Shop No.5, 1st floor, Godrej Anandam, City Arcade 1, Ganeshpeth Colony, Nagpur</span>
+                    </li>
+                    <li className="flex gap-3 text-[#B9B1A4]">
+                      <span className="shrink-0 mt-1">✨</span>
+                      <span>Calm, private, highly focused on hygiene, and premium wellness therapies.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Services */}
+                <div>
+                  <h4 className="text-sm uppercase tracking-widest text-white/50 mb-3 font-semibold">Premium Services Showcased</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Swedish Massage: ₹2,200", "Aroma Therapy: ₹2,200", "Hammam Spa: ₹3,500", "Couple Spa: ₹4,500", "Jacuzzi Spa: ₹5,000"].map((svc, i) => (
+                      <span key={i} className="px-3 py-1.5 rounded bg-[#16120E] border border-white/5 text-[#E7C46A] text-sm font-medium">
+                        {svc}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Reviews */}
+              <div>
+                <h4 className="text-sm uppercase tracking-widest text-white/50 mb-6 font-semibold border-b border-white/5 pb-2">What Their Customers Say</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="p-6 rounded-xl bg-[#16120E] border border-white/5">
+                    <div className="flex items-center gap-1 mb-3 text-[#D4A43A]">{"★".repeat(5)}</div>
+                    <p className="text-white/80 italic leading-relaxed text-sm mb-4">
+                      "Finding a good, hygienic spa in Nagpur can be tough, but Ora Spa exceeded my expectations. The rooms are super clean and well-sanitized. The interior is beautiful, and the therapists really know what they are doing. Best service in town!"
+                    </p>
+                    <p className="text-white font-semibold text-sm">— AMITKUMAR WANKHEDE & Shubham Choudhary</p>
+                  </div>
+                  <div className="p-6 rounded-xl bg-[#16120E] border border-white/5">
+                    <div className="flex items-center gap-1 mb-3 text-[#D4A43A]">{"★".repeat(5)}</div>
+                    <p className="text-white/80 italic leading-relaxed text-sm mb-4">
+                      "Loved the luxurious vibe and the incredibly polite staff at Ora Spa & Wellness. Premium services at very reasonable prices. A must-visit for a relaxing weekend getaway!"
+                    </p>
+                    <p className="text-white font-semibold text-sm">— Kajal Sonwane</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <div className="flex justify-center pt-4 border-t border-white/5">
+                <Button size="lg" className="font-display font-semibold bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A] shadow-[0_0_20px_rgba(212,164,58,0.3)] transition-all transform hover:scale-105" asChild>
+                  <a href={(activeProject as any)?.link || "#"} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    Visit Live Site <ExternalLink size={18} />
+                  </a>
+                </Button>
+              </div>
+
+            </div>
+          </div>
+        </div>,
+        document.body
+        )}
+
+        {/* ✨ View All Button ✨ */}
         <div className="mt-14 flex justify-center">
            <Button asChild className="rounded-xl px-8 py-6 bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A] font-semibold font-display transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(212,164,58,0.2)]">
               <Link to="/case-studies" target="_blank">View All Case Studies</Link>
@@ -332,4 +467,3 @@ export const ProjectsSection = () => {
     </section>
   );
 };
-

@@ -16,7 +16,7 @@ export const Footer = () => {
           <div className="flex flex-col gap-4">
             <a href="#" className="inline-flex items-center transition-transform duration-300 ease-out hover:scale-[1.05] active:scale-[0.98] w-fit">
               <img
-                src="/Logo/web mantu.png"
+                src="/Logo/WEBMANTU DIGITAL.png"
                 alt="Web Mantu"
                 className="h-16 md:h-18 w-auto object-contain select-none"
                 draggable={false}
@@ -69,13 +69,6 @@ export const Footer = () => {
                   <Phone size={16} className="mt-0.5 shrink-0" />
                   <span>+91 7499147597</span>
                 </a>
-              </li>
-              <li className="flex items-start gap-3 text-sm text-muted-foreground">
-                <MapPin size={16} className="mt-0.5 shrink-0" />
-                <span className="leading-relaxed">
-                  Indora square, Nagpur,<br />
-                  Maharashtra 440017
-                </span>
               </li>
             </ul>
           </div>

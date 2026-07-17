@@ -40,7 +40,7 @@ export const HeroSection = () => {
       <div className="max-w-7xl relative z-10 mx-auto px-6 md:px-12 lg:px-16" ref={heroRef}>
         <div className="mx-auto max-w-[72rem] text-center">
           <div className="opacity-0 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            <div className="hero-badge mb-4 inline-flex items-center gap-3 rounded-full glass bg-card/70 px-5 py-2 backdrop-blur-md ring-1 ring-white/10 transition-all hover:ring-white/20 md:mb-6">
+            <div className="hero-badge mb-8 inline-flex items-center gap-3 rounded-full glass bg-card/70 px-5 py-2 backdrop-blur-md ring-1 ring-white/10 transition-all hover:ring-white/20 md:mb-10">
               <svg
                 width="28"
                 height="28"
@@ -104,26 +104,25 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          <h1 className="font-display mb-5 text-[2.1rem] font-bold leading-[1.06] tracking-tight sm:text-4xl md:mb-7 md:text-5xl lg:text-6xl">
-            <BlurText text="Websites That Turn Visitors" delay={0.2} />
+          <h1 className="font-display mb-4 text-[2.2rem] leading-[1.35] tracking-tight sm:text-4xl md:mb-5 md:text-[3.25rem] lg:text-[4.2rem]">
+            <BlurText 
+              text="Your Complete AI &" 
+              textClassName="font-semibold text-[#F5F2EA]/95 inline-block" 
+              delay={0.2} 
+            />
             <br />
             <BlurText
-              text="Into Qualified Leads"
-              textClassName="bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] bg-clip-text text-transparent"
+              text="Digital Growth Partner"
+              textClassName="font-extrabold bg-gradient-to-br from-[#D4A43A] via-[#FCEAA9] to-[#A67822] bg-clip-text text-transparent leading-[1.4] py-2"
               delay={0.45}
             />
           </h1>
 
           <p
-            className="mx-auto mb-8 max-w-2xl text-base font-sans font-normal leading-[1.65] text-muted-foreground opacity-0 animate-fade-up sm:text-lg md:mb-10 md:text-[1.15rem]"
+            className="mx-auto mt-4 mb-8 max-w-2xl text-base font-poppins font-normal leading-[1.65] text-muted-foreground opacity-0 animate-fade-up sm:text-lg md:mb-10 md:text-[1.15rem]"
             style={{ animationDelay: "1.2s" }}
           >
-            <span className="md:hidden">
-              We build conversion-focused websites that generate more calls, WhatsApp inquiries, and form submissions.
-            </span>
-            <span className="hidden md:inline">
-              We build conversion-focused websites that help serious businesses generate more calls, WhatsApp inquiries, and qualified form leads.
-            </span>
+            Scale your brand with a 24/7 lead generation machine powered by high-converting websites, AI automation, and viral media.
           </p>
 
           <div
@@ -154,13 +153,13 @@ export const HeroSection = () => {
             style={{ animationDelay: "1.45s" }}
           >
             <span className="rounded-full border border-[#2A221A] bg-[#16120E]/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B9B1A4] sm:text-xs">
-              Conversion-Focused
+              AI Automation
             </span>
             <span className="rounded-full border border-[#2A221A] bg-[#16120E]/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B9B1A4] sm:text-xs">
-              Mobile-First
+              Web Development
             </span>
             <span className="rounded-full border border-[#2A221A] bg-[#16120E]/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B9B1A4] sm:text-xs">
-              Built for Speed
+              SEO & Media
             </span>
           </div>
         </div>

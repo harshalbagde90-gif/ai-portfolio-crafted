@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
-import { CheckCircle2, Globe2, Target, Zap } from "lucide-react";
+import { CheckCircle2, Globe2, Target, Zap, Search, Handshake } from "lucide-react";
 import { MagicParticleCard } from "@/components/MagicBento";
 import aboutImage from "@/assets/about-image.png";
 
@@ -147,6 +147,47 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
+
+          {/* ═══════ WHY BUSINESSES CHOOSE US ═══════ */}
+          <section className="container mx-auto px-4 md:px-6 pt-24 pb-32">
+            <div className="text-center mb-14">
+              <span className="text-sm font-medium uppercase tracking-[0.14em] text-[#D4A43A]">Our Edge</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mt-2 mb-4 text-white">
+                Why Businesses <span className="bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] bg-clip-text text-transparent">Choose Us</span>
+              </h2>
+              <p className="text-[#B9B1A4] text-lg max-w-3xl mx-auto font-sans leading-relaxed">
+                Every project we deliver is engineered to outperform competitors in your local market. No shortcuts, no recycled templates — only precision-crafted digital assets built for measurable growth.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {[
+                { icon: <Target className="w-6 h-6 text-[#D4A43A]" />, title: "Custom-Built, Zero Templates", desc: "Each platform is architected from scratch around your brand identity, target audience, and local market dynamics. We never reuse frameworks — your digital presence stays one-of-a-kind." },
+                { icon: <Zap className="w-6 h-6 text-[#D4A43A]" />, title: "Rapid 7–14 Day Delivery", desc: "Our streamlined production pipeline moves from strategy to deployment in under two weeks. You get a fully functional, conversion-ready asset without the months-long agency wait." },
+                { icon: <Search className="w-6 h-6 text-[#D4A43A]" />, title: "SEO & Geo-Optimized from Day 1", desc: "Every page, heading, and meta tag is structured for Google's local ranking signals. We embed geo-targeted keywords so your business surfaces when nearby customers search." },
+                { icon: <Handshake className="w-6 h-6 text-[#D4A43A]" />, title: "Dedicated 1-on-1 Support", desc: "You work directly with the developer and strategist handling your project — no account managers, no ticket queues. Real-time communication ensures your vision translates perfectly." },
+              ].map((item, idx) => (
+                <MagicParticleCard
+                  key={idx}
+                  className="h-full"
+                  particleCount={6}
+                  glowColor="212, 164, 58"
+                  enableTilt={false}
+                >
+                  <div className="group flex h-full flex-col rounded-2xl border border-[#2A221A] bg-[#0F0C09]/90 p-8 transition-all duration-500 hover:border-[#D4A43A]/45 hover:shadow-[0_0_30px_rgba(212,164,58,0.05)]">
+                    <div className="flex flex-row items-center gap-4 mb-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#16120E] border border-[#2A221A] group-hover:border-[#D4A43A]/50 transition-all duration-300">
+                        <div className="group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(212,164,58,0.8)] transition-all duration-300">
+                          {item.icon}
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold font-display text-white">{item.title}</h3>
+                    </div>
+                    <p className="text-gray-400 leading-relaxed font-sans text-sm">{item.desc}</p>
+                  </div>
+                </MagicParticleCard>
+              ))}
+            </div>
+          </section>
 
           {/* Core Values */}
           <div className="mb-32">

@@ -227,14 +227,14 @@ export const servicesData: ServiceDetail[] = [
       "/Videos/Services/Content & Video Production/Vid 2.mp4",
       "/Videos/Services/Content & Video Production/Vid 3.mp4"
     ],
-    title: "Content & Video Production",
-    subtitle: "End-to-end video shooting, viral editing, content creation, and full social media management.",
+    title: "UGC Ads & Viral Editing",
+    subtitle: "High-retention viral editing, UGC ad creation, and full social media management for global brands.",
     summary:
-      "We handle everything from on-ground video shoots to high-retention editing and complete social media management to maximize your brand's digital presence.",
+      "We specialize in creating high-converting User-Generated Content (UGC) ads and viral video edits that maximize your brand's digital presence and ROAS.",
     description:
-      "In the age of endless scrolling, consistency and quality are everything. We are a full-stack media production agency. We don't just edit videos; we offer premium on-ground Video Shooting for Real Estate, Spas, and Clinics. Our team handles entire Content Strategy creation, high-retention viral Video Editing (with hooks, pacing, and AI visuals), and end-to-end Social Media Management. From shooting the first frame to posting on Instagram and managing your community, we handle it all so you can focus on your business.",
+      "In the age of endless scrolling, consistency and quality are everything. We don't just edit videos; we engineer attention. Our team handles entire Content Strategy creation, high-retention viral Video Editing (with hooks, pacing, and AI visuals), and high-converting UGC (User Generated Content) Ads. From scripting the first frame to posting on Instagram and managing your community, we handle the entire digital media pipeline so you can focus on scaling your business globally.",
     includes: [
-      "On-Ground Video Shooting & Production",
+      "High-Converting UGC Video Ads",
       "High-Retention Video Editing (Reels/Shorts)",
       "Content Strategy & Script Writing",
       "End-to-End Social Media Management",
@@ -242,12 +242,12 @@ export const servicesData: ServiceDetail[] = [
       "Immersive Sound Design & Viral Hooks",
     ],
     idealFor: [
-      "Real Estate Agents (Property Tours & Socials)",
-      "Spa, Salons & Clinics needing aesthetic content",
-      "Local Businesses wanting hands-off social media",
-      "Founders & Coaches building Personal Brands",
+      "E-commerce Brands scaling with Facebook/TikTok Ads",
+      "Coaches & Course Creators launching programs",
+      "SaaS Companies needing engaging product explainers",
+      "Founders & Consultants building Personal Brands",
       "Faceless YouTube Channels (Cash Cow Videos)",
-      "E-commerce Brands (High-converting UGC ads)",
+      "Agencies needing reliable white-label video editing",
     ],
     process: [
       {
@@ -256,9 +256,9 @@ export const servicesData: ServiceDetail[] = [
           "We analyze your brand, target audience, and competitors to create a monthly content calendar and write engaging scripts with viral hooks.",
       },
       {
-        title: "2. Premium Video Shooting",
+        title: "2. UGC Sourcing & Creative Direction",
         description:
-          "Our production team visits your location (Real Estate, Clinic, Spa) to shoot high-quality, aesthetic 4K footage tailored for social media.",
+          "We source authentic creators or utilize your raw footage, directing the creative angles to ensure the content feels native and highly engaging for platforms like TikTok and Instagram.",
       },
       {
         title: "3. High-Retention Editing",
@@ -281,9 +281,9 @@ export const servicesData: ServiceDetail[] = [
     ],
     faqs: [
       {
-        question: "Do you provide on-location video shooting?",
+        question: "Do you provide the raw footage for UGC ads?",
         answer:
-          "Yes! We offer premium on-ground video shooting services, especially for Real Estate properties, Spas, Salons, and corporate offices to capture high-quality raw footage.",
+          "Yes! We have a network of authentic creators who can film the raw UGC footage based on our high-converting scripts. Alternatively, you can send us your raw product clips, and we will edit them into viral ads.",
       },
       {
         question: "Do you manage the social media accounts as well?",
@@ -307,7 +307,7 @@ export const servicesData: ServiceDetail[] = [
       },
     ],
     metaDescription:
-      "End-to-end Content and Video Production services by WebMantu. We provide on-ground video shooting, high-retention editing, and full social media management.",
+      "Viral video editing and UGC Ad creation services by WebMantu. We provide high-retention editing, script writing, and full social media management for global brands.",
   },
   {
     id: "service-seo-growth",

@@ -336,7 +336,7 @@ const ServiceDetail = () => {
                 asChild
                 className="h-11 rounded-xl bg-[#D4A43A] px-6 text-sm font-semibold text-[#0B0B0C] hover:bg-[#E7C46A]"
               >
-                <Link to="/#contact">
+                <Link to="/contact">
                   {isVideoPortfolio ? "Send 1 Raw Video, Get 1 Viral Reel Free" : "Get Free Audit"}
                   <ArrowRight size={15} className="ml-2" />
                 </Link>

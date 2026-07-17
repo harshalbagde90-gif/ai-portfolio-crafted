@@ -226,7 +226,7 @@ export const Navbar = () => {
             }}
           >
             <img
-              src="/Logo/web mantu.png"
+              src="/Logo/WEBMANTU DIGITAL.png"
               alt="Web Mantu"
               className={`h-16 md:h-18 w-auto object-contain select-none`}
               draggable={false}

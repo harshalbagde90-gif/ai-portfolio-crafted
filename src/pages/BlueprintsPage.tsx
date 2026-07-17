@@ -3,7 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
 import { demoProjects, liveProjects } from "@/components/ProjectsSection";
-import { FolderGit2, ChevronLeft, ChevronRight, ExternalLink, MessageSquare, Sparkles, Target, Zap, Search, Handshake, ArrowRight } from "lucide-react";
+import { FolderGit2, ChevronLeft, ChevronRight, ExternalLink, MessageSquare, Sparkles, Target, Zap, Search, Handshake, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { MagicParticleCard } from "@/components/MagicBento";
@@ -42,44 +42,154 @@ const ImageCarousel = ({ images, autoStart = false, intervalMs = 5000 }: any) =>
   );
 };
 
-const HomeStyleCard = ({ project }: { project: any }) => (
-  <div className={`h-full flex flex-col rounded-2xl bg-[#0F0C09] border border-[#2A221A] overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,164,58,0.1)] hover:-translate-y-1 ${project.isLive ? "ring-1 ring-emerald-500/30" : ""}`}>
-    {/* Image */}
-    {project.images ? (
-      <div className="w-full aspect-[16/9] bg-black/20 overflow-hidden">
-        <img src={project.images[0]} alt="" className="w-full h-full object-cover object-center" loading="lazy" />
+const HomeStyleCard = ({ project }: { project: any }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      <div className={`h-full flex flex-col rounded-2xl bg-[#0F0C09] border border-[#2A221A] overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,164,58,0.1)] hover:-translate-y-1 ${project.isLive ? "ring-1 ring-emerald-500/30" : ""}`}>
+        {/* Image */}
+        {project.images ? (
+          <div className="w-full aspect-[16/9] bg-black/20 overflow-hidden">
+            <ImageCarousel images={project.images} autoStart={project.autoStart} intervalMs={project.intervalMs} />
+          </div>
+        ) : (
+          <div className="w-full aspect-[16/9] bg-gradient-to-br from-[#2A221A] to-[#16120E] flex items-center justify-center">
+            <Sparkles size={48} className="text-white/90" />
+          </div>
+        )}
+        {/* Content */}
+        <div className="p-5 flex flex-col flex-1 bg-[#0F0C09]">
+          <h3 
+            className={`font-display text-lg font-bold mb-2 text-[#F5F2EA] line-clamp-1 ${project.hasCaseStudyModal ? 'cursor-pointer hover:text-[#D4A43A] transition-colors hover:underline decoration-[#D4A43A]/50 underline-offset-4' : ''}`}
+            onClick={() => project.hasCaseStudyModal && setIsModalOpen(true)}
+          >
+            {project.title}
+          </h3>
+          <p className="text-[#B9B1A4] font-sans text-sm mb-3 line-clamp-2">{project.description}</p>
+          
+          {Array.isArray(project.tags) && project.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {project.tags.slice(0, 4).map((tag: string) => (
+                <span key={tag} className="px-2 py-0.5 text-[10px] font-sans rounded-full bg-[#16120E] text-[#B9B1A4] border border-[#2A221A]">{tag}</span>
+              ))}
+            </div>
+          )}
+          
+          <div className="flex gap-3 mt-auto pt-1">
+            <Button size="sm" className="flex-1 bg-transparent border border-[#D4A43A] text-[#D4A43A] hover:bg-[#D4A43A]/10 font-display font-semibold" asChild>
+              <a href="#contact"><MessageSquare size={14} className="mr-2" /> Talk</a>
+            </Button>
+            <Button size="sm" className={`flex-1 font-display font-semibold border-0 ${project.isLive ? "bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white" : "bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A]"} shadow-[0_0_15px_rgba(212,164,58,0.2)]`} asChild>
+              <a href={project.link || "#"} target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={14} className="mr-2" /> {project.isLive ? "Visit Live" : "Visit"}
+              </a>
+            </Button>
+          </div>
+        </div>
       </div>
-    ) : (
-      <div className="w-full aspect-[16/9] bg-gradient-to-br from-[#2A221A] to-[#16120E] flex items-center justify-center">
-        <Sparkles size={48} className="text-white/90" />
-      </div>
-    )}
-    {/* Content */}
-    <div className="p-5 flex flex-col flex-1 bg-[#0F0C09]">
-      <h3 className="font-display text-lg font-bold mb-2 text-[#F5F2EA] line-clamp-1">{project.title}</h3>
-      <p className="text-[#B9B1A4] font-sans text-sm mb-3 line-clamp-2">{project.description}</p>
-      
-      {Array.isArray(project.tags) && project.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.tags.slice(0, 4).map((tag: string) => (
-            <span key={tag} className="px-2 py-0.5 text-[10px] font-sans rounded-full bg-[#16120E] text-[#B9B1A4] border border-[#2A221A]">{tag}</span>
-          ))}
+
+      {isModalOpen && project.hasCaseStudyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0F0C09] border border-[#D4A43A]/30 rounded-2xl shadow-[0_0_50px_rgba(212,164,58,0.15)] flex flex-col">
+            
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-white/10 text-white/70 hover:text-white hover:bg-black/80 transition-all"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Modal Header */}
+            <div className="p-6 md:p-10 pb-6 border-b border-white/5">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-3">
+                ORA Spa & Wellness - Complete Digital Transformation
+              </h2>
+              <p className="text-[#D4A43A] text-lg font-medium">
+                A 360° Brand Strategy & High-Converting Local Ecosystem built entirely from scratch by the WebMantu Team.
+              </p>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 md:p-10 space-y-10">
+              
+              {/* WebMantu Contribution Edge */}
+              <div className="relative p-8 rounded-xl bg-gradient-to-r from-[#D4A43A]/10 to-transparent border-l-4 border-[#D4A43A]">
+                <h3 className="text-xl font-bold text-white font-display mb-3 flex items-center gap-2">
+                  <Sparkles size={20} className="text-[#D4A43A]" /> The WebMantu Edge
+                </h3>
+                <p className="text-[#B9B1A4] leading-relaxed text-[1.05rem]">
+                  From ground zero to Nagpur's premier luxury spa destination online, our team engineered every touchpoint. We didn't just build a website; we executed a complete digital takeover. The WebMantu team personally conducted the professional photoshoot, crafted their entire Social Media presence, and fully optimized their Google My Business profile. If you search for <strong>'ORA Spa and Wellness'</strong> on Google, every premium visual and piece of data you see is proudly curated by WebMantu.
+                </p>
+              </div>
+
+              {/* Client & Vibe */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-sm uppercase tracking-widest text-white/50 mb-3 font-semibold">Location & Vibe</h4>
+                  <ul className="space-y-4">
+                    <li className="flex gap-3 text-[#B9B1A4]">
+                      <span className="shrink-0 mt-1">📍</span>
+                      <span>Shop No.5, 1st floor, Godrej Anandam, City Arcade 1, Ganeshpeth Colony, Nagpur</span>
+                    </li>
+                    <li className="flex gap-3 text-[#B9B1A4]">
+                      <span className="shrink-0 mt-1">✨</span>
+                      <span>Calm, private, highly focused on hygiene, and premium wellness therapies.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Services */}
+                <div>
+                  <h4 className="text-sm uppercase tracking-widest text-white/50 mb-3 font-semibold">Premium Services Showcased</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Swedish Massage: ₹2,200", "Aroma Therapy: ₹2,200", "Hammam Spa: ₹3,500", "Couple Spa: ₹4,500", "Jacuzzi Spa: ₹5,000"].map((svc, i) => (
+                      <span key={i} className="px-3 py-1.5 rounded bg-[#16120E] border border-white/5 text-[#E7C46A] text-sm font-medium">
+                        {svc}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Reviews */}
+              <div>
+                <h4 className="text-sm uppercase tracking-widest text-white/50 mb-6 font-semibold border-b border-white/5 pb-2">What Their Customers Say</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="p-6 rounded-xl bg-[#16120E] border border-white/5">
+                    <div className="flex items-center gap-1 mb-3 text-[#D4A43A]">{"★".repeat(5)}</div>
+                    <p className="text-white/80 italic leading-relaxed text-sm mb-4">
+                      "Finding a good, hygienic spa in Nagpur can be tough, but Ora Spa exceeded my expectations. The rooms are super clean and well-sanitized. The interior is beautiful, and the therapists really know what they are doing. Best service in town!"
+                    </p>
+                    <p className="text-white font-semibold text-sm">— AMITKUMAR WANKHEDE & Shubham Choudhary</p>
+                  </div>
+                  <div className="p-6 rounded-xl bg-[#16120E] border border-white/5">
+                    <div className="flex items-center gap-1 mb-3 text-[#D4A43A]">{"★".repeat(5)}</div>
+                    <p className="text-white/80 italic leading-relaxed text-sm mb-4">
+                      "Loved the luxurious vibe and the incredibly polite staff at Ora Spa & Wellness. Premium services at very reasonable prices. A must-visit for a relaxing weekend getaway!"
+                    </p>
+                    <p className="text-white font-semibold text-sm">— Kajal Sonwane</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <div className="flex justify-center pt-4 border-t border-white/5">
+                <Button size="lg" className="font-display font-semibold bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A] shadow-[0_0_20px_rgba(212,164,58,0.3)] transition-all transform hover:scale-105" asChild>
+                  <a href={project.link || "#"} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    Visit Live Site <ExternalLink size={18} />
+                  </a>
+                </Button>
+              </div>
+
+            </div>
+          </div>
         </div>
       )}
-      
-      <div className="flex gap-3 mt-auto pt-1">
-        <Button size="sm" className="flex-1 bg-transparent border border-[#D4A43A] text-[#D4A43A] hover:bg-[#D4A43A]/10 font-display font-semibold" asChild>
-          <a href="#contact"><MessageSquare size={14} className="mr-2" /> Talk</a>
-        </Button>
-        <Button size="sm" className={`flex-1 font-display font-semibold border-0 ${project.isLive ? "bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white" : "bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] text-[#16120E] hover:from-[#E7C46A] hover:to-[#D4A43A]"} shadow-[0_0_15px_rgba(212,164,58,0.2)]`} asChild>
-          <a href={project.link || "#"} target="_blank" rel="noopener noreferrer">
-            <ExternalLink size={14} className="mr-2" /> {project.isLive ? "Visit Live" : "Visit"}
-          </a>
-        </Button>
-      </div>
-    </div>
-  </div>
-);
+    </>
+  );
+};
 
 const portfolioImages = [
   "/Images/case studies/case study 1.jpg",
@@ -204,49 +314,26 @@ const BlueprintsPage = () => {
           </div>
         </section>
 
-        {/* ═══════ WHY BUSINESSES CHOOSE US ═══════ */}
-        <section className="container mx-auto px-4 md:px-6 pt-24 pb-8">
-          <div className="text-center mb-14">
-            <span className="text-sm font-medium uppercase tracking-[0.14em] text-[#D4A43A]">Our Edge</span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mt-2 mb-4 text-white">
-              Why Businesses <span className="bg-gradient-to-r from-[#D4A43A] to-[#E7C46A] bg-clip-text text-transparent">Choose Us</span>
-            </h2>
-            <p className="text-[#B9B1A4] text-lg max-w-3xl mx-auto font-sans leading-relaxed">
-              Every project we deliver is engineered to outperform competitors in your local market. No shortcuts, no recycled templates — only precision-crafted digital assets built for measurable growth.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {[
-              { icon: <Target className="w-6 h-6 text-[#D4A43A]" />, title: "Custom-Built, Zero Templates", desc: "Each platform is architected from scratch around your brand identity, target audience, and local market dynamics. We never reuse frameworks — your digital presence stays one-of-a-kind." },
-              { icon: <Zap className="w-6 h-6 text-[#D4A43A]" />, title: "Rapid 7–14 Day Delivery", desc: "Our streamlined production pipeline moves from strategy to deployment in under two weeks. You get a fully functional, conversion-ready asset without the months-long agency wait." },
-              { icon: <Search className="w-6 h-6 text-[#D4A43A]" />, title: "SEO & Geo-Optimized from Day 1", desc: "Every page, heading, and meta tag is structured for Google's local ranking signals. We embed geo-targeted keywords so your business surfaces when nearby customers search." },
-              { icon: <Handshake className="w-6 h-6 text-[#D4A43A]" />, title: "Dedicated 1-on-1 Support", desc: "You work directly with the developer and strategist handling your project — no account managers, no ticket queues. Real-time communication ensures your vision translates perfectly." },
-            ].map((item, idx) => (
-              <MagicParticleCard
-                key={idx}
-                className="h-full"
-                particleCount={6}
-                glowColor="212, 164, 58"
-                enableTilt={false}
-              >
-                <div className="group flex h-full flex-col rounded-2xl border border-[#2A221A] bg-[#0F0C09]/90 p-8 transition-all duration-500 hover:border-[#D4A43A]/45 hover:shadow-[0_0_30px_rgba(212,164,58,0.05)]">
-                  <div className="flex flex-row items-center gap-4 mb-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#16120E] border border-[#2A221A] group-hover:border-[#D4A43A]/50 transition-all duration-300">
-                      <div className="group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(212,164,58,0.8)] transition-all duration-300">
-                        {item.icon}
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-bold font-display text-white">{item.title}</h3>
-                  </div>
-                  <p className="text-gray-400 leading-relaxed font-sans text-sm">{item.desc}</p>
-                </div>
-              </MagicParticleCard>
-            ))}
-          </div>
-        </section>
+
 
         {/* CONTENT SECTION */}
         <section className="container mx-auto px-4 md:px-6 pt-24">
+          <div className="mb-32">
+            <div className="text-center mb-12">
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">
+                Production Platforms
+              </h2>
+              <p className="text-[#B9B1A4] text-lg max-w-3xl mx-auto font-sans leading-relaxed">
+                Fully developed, live digital ecosystems engineered for massive scale. These platforms integrate advanced SEO, localized lead-generation funnels, and seamless performance to drive compounding ROI for our clients.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {liveProjects.map(project => (
+                <HomeStyleCard key={project.title} project={project} />
+              ))}
+            </div>
+          </div>
+
           <div className="mb-32">
             <div className="text-center mb-12">
               <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
@@ -298,22 +385,6 @@ const BlueprintsPage = () => {
                   />
                 ))}
               </div>
-            </div>
-          </div>
-
-          <div className="mb-32">
-            <div className="text-center mb-12">
-              <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">
-                Production Platforms
-              </h2>
-              <p className="text-[#B9B1A4] text-lg max-w-3xl mx-auto font-sans leading-relaxed">
-                Fully developed, live digital ecosystems engineered for massive scale. These platforms integrate advanced SEO, localized lead-generation funnels, and seamless performance to drive compounding ROI for our clients.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {liveProjects.map(project => (
-                <HomeStyleCard key={project.title} project={project} />
-              ))}
             </div>
           </div>
 
